@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FiArrowUp } from "react-icons/fi";
 import { navLinks, profile, studio } from "../../data/content";
+import Logo from "../ui/Logo";
 import TornEdge from "../ui/TornEdge";
 
 function useClock(timeZone) {
@@ -21,6 +22,9 @@ export default function Footer() {
 
       <div className="mx-auto grid max-w-[1600px] gap-10 md:grid-cols-3">
         <div>
+          <a href={studio.url} target="_blank" rel="noreferrer" className="mb-8 inline-block text-paper-2 transition-colors hover:text-orange" aria-label={`${studio.name} — studio site`}>
+            <Logo title={null} className="h-20 w-auto md:h-24" />
+          </a>
           <p className="mono-label">Local time — Sri Lanka</p>
           <p className="mt-2 font-mono text-3xl font-medium tabular-nums text-paper-2 md:text-4xl" aria-live="off">
             {time} <span className="text-base text-paper-2/60">GMT+5:30</span>

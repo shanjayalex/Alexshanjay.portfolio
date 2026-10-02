@@ -3,6 +3,7 @@ import { FiArrowUpRight, FiInstagram } from "react-icons/fi";
 import { profile, studio } from "../../data/content";
 import { useGsap } from "../../hooks/useGsap";
 import { gsap, MOTION } from "../../lib/gsap";
+import Logo, { LOGO_MARK } from "../ui/Logo";
 import MagneticButton from "../ui/MagneticButton";
 import MetaRow from "../ui/MetaRow";
 import ScriptWord from "../ui/ScriptWord";
@@ -18,9 +19,9 @@ function Stamp() {
       <text className="font-mono" fontSize="9.4" fontWeight="700" letterSpacing="2.2" fill="var(--ink)">
         <textPath href="#stamp-circle">{text.toUpperCase()}</textPath>
       </text>
-      <text x="60" y="68" textAnchor="middle" className="display" fontSize="26" fill="var(--ink)">
-        AX
-      </text>
+      <svg x="41" y="40" width="38" height="40" viewBox="31 0 661 691">
+        <path d={LOGO_MARK} fill="var(--ink)" />
+      </svg>
     </svg>
   );
 }
@@ -61,11 +62,16 @@ export default function Studio() {
           </a>
 
           <header className="flex flex-wrap items-start justify-between gap-6 border-b border-ink/15 pb-6">
-            <div className="relative">
-              <ScriptWord className="absolute -top-[0.7em] left-[-0.2em] -rotate-8 text-[clamp(2.6rem,6vw,5rem)]">{studio.script}</ScriptWord>
-              <p className="display stencil text-[clamp(2rem,8.4vw,7.5rem)]">{studio.name}</p>
+            <div className="flex items-end gap-4 md:gap-8">
+              <Logo className="h-[clamp(4.5rem,11vw,9.5rem)] w-auto shrink-0 text-ink" />
+              <div className="relative pb-[0.06em]">
+                <ScriptWord className="absolute -top-[0.7em] left-[-0.2em] -rotate-8 text-[clamp(2rem,5vw,4.5rem)]">{studio.script}</ScriptWord>
+                <p className="display stencil text-[clamp(1.6rem,6.2vw,5.6rem)]" aria-hidden="true">
+                  {studio.name}
+                </p>
+              </div>
             </div>
-            <div className="mono-label space-y-1 text-right">
+            <div className="mono-label space-y-1 text-right md:mr-24 lg:mr-28">
               <p>
                 <b className="font-bold">Card No.</b> 001
               </p>

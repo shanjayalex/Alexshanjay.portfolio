@@ -17,7 +17,7 @@ function structuredData() {
     telephone: profile.phone,
     image: absolute(profile.photo),
     address: { "@type": "PostalAddress", addressLocality: "Jaffna", addressRegion: "Northern Province", addressCountry: "LK" },
-    worksFor: { "@type": "Organization", name: studio.name, url: studio.url },
+    worksFor: { "@type": "Organization", name: studio.name, url: studio.url, logo: absolute(studio.logo) },
     sameAs: [...socials.map((s) => s.href).filter(Boolean), studio.url],
     ...(site.url && { url: site.url }),
   };

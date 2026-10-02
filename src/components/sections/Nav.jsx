@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks, profile } from "../../data/content";
 import { lockScroll, unlockScroll } from "../../lib/scroll";
+import Logo from "../ui/Logo";
 import MagneticButton from "../ui/MagneticButton";
 
 function Monogram() {
   return (
     <a href="#top" className="flex items-center gap-2.5" aria-label="Alex Shanjay — back to top">
-      <span className="display grid h-10 w-10 place-items-center rounded-full bg-ink text-[15px] tracking-[-0.06em] text-paper-2">
-        AX
+      <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-paper-2">
+        <Logo variant="mark" title={null} className="h-[21px] w-auto translate-y-[-0.5px]" />
       </span>
       <span className="mono-label hidden text-ink sm:inline">
         <b className="font-bold">Alex</b> Shanjay

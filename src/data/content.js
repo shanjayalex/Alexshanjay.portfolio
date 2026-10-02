@@ -163,6 +163,7 @@ export const studio = {
   instagram: null, // [EDIT] AX.Visuals Instagram URL — the button appears once set
   founded: "2026", // [EDIT] confirm founding year
   script: "studio",
+  logo: "/brand/ax-visuals-logo.png",
 };
 
 export const skills = [
