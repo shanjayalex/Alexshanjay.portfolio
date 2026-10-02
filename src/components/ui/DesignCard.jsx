@@ -24,9 +24,9 @@ export default function DesignCard({ design, index, onOpen, tilt = true }) {
           <PosterPlaceholder item={design} index={index} />
         )}
       </span>
-      <span className="flex items-center justify-between gap-2 px-1 pb-0.5 pt-3">
+      <span className="flex flex-wrap items-end justify-between gap-x-2 gap-y-1 px-1 pb-0.5 pt-3">
         <span className="min-w-0">
-          <span className="card-title block truncate text-[15px] md:text-base">{design.title}</span>
+          <span className="card-title line-clamp-2 block text-[15px] md:text-base">{design.title}</span>
           <span className="mono-label mt-0.5 block">{design.category}</span>
         </span>
         {design.href && (

@@ -42,6 +42,7 @@ function Media({ item, kind, index }) {
 
 export default function LightboxProvider({ children }) {
   const [state, setState] = useState(null);
+  const [mounted, setMounted] = useState(false);
   const dialogRef = useRef(null);
   const returnFocus = useRef(null);
 
@@ -57,6 +58,8 @@ export default function LightboxProvider({ children }) {
   }, []);
 
   const isOpen = Boolean(state);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -97,7 +100,8 @@ export default function LightboxProvider({ children }) {
   return (
     <LightboxContext.Provider value={value}>
       {children}
-      {createPortal(
+      {mounted &&
+        createPortal(
         <AnimatePresence>
           {state && (
             <motion.div

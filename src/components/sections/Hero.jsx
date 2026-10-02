@@ -54,14 +54,13 @@ export default function Hero() {
       <MetaRow left={copy.meta[0]} right={copy.meta[1]} className="mx-auto max-w-[1600px]" />
 
       <div data-tray-top className="relative mx-auto mt-8 max-w-[1180px] md:mt-12">
-        <Tray className="swipe-row md:grid md:grid-cols-3 md:gap-5">
+        <Tray className="swipe-row lg:grid lg:grid-cols-3 lg:gap-5">
           {heroVideos.map((video, i) => (
             <VideoCard
               key={video.id}
               video={video}
               number={i + 1}
               variant="compact"
-              eager={i === 0}
               onOpen={() => open({ kind: "video", items: videos, index: i })}
             />
           ))}
@@ -86,7 +85,7 @@ export default function Hero() {
       </div>
 
       <div data-tray-bottom className="relative mx-auto max-w-[1180px]">
-        <Tray className="swipe-row md:grid md:grid-cols-3 md:gap-5">
+        <Tray className="swipe-row lg:grid lg:grid-cols-3 lg:gap-5">
           {heroDesigns.map((design, i) => (
             <DesignCard
               key={design.id}

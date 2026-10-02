@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { profile, sections, skills, tools } from "../../data/content";
+import { profile, sections, site, skills, tools } from "../../data/content";
 import { useGsap } from "../../hooks/useGsap";
 import { gsap, MOTION, SplitText } from "../../lib/gsap";
 import Marquee from "../ui/Marquee";
@@ -67,6 +67,10 @@ export default function About() {
           <div>
             <p data-bio className="text-[clamp(1.35rem,2.3vw,2rem)] font-medium leading-[1.35] tracking-[-0.01em] text-ink">
               {profile.bio}
+            </p>
+
+            <p className="mt-8 max-w-2xl border-l-2 border-orange pl-5 text-[17px] md:text-lg">
+              <strong className="font-bold text-ink">{site.summary}</strong> {site.summaryMore}
             </p>
 
             <ul className="mt-12 space-y-6" aria-label="Skills">

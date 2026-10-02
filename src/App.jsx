@@ -12,8 +12,10 @@ import Videos from "./components/sections/Videos";
 import Shorts from "./components/sections/Shorts";
 import Design from "./components/sections/Design";
 import Studio from "./components/sections/Studio";
+import Services from "./components/sections/Services";
 import About from "./components/sections/About";
 import Journey from "./components/sections/Journey";
+import Faq from "./components/sections/Faq";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/sections/Footer";
 import CustomCursor from "./components/ui/CustomCursor";
@@ -48,8 +50,10 @@ export default function App() {
           <Shorts />
           <Design />
           <Studio />
+          <Services />
           <About />
           <Journey />
+          <Faq />
           <Contact />
         </main>
         <Footer />

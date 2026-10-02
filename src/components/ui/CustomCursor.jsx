@@ -5,10 +5,11 @@ const LABELS = { play: "Play", view: "View", drag: "← Drag →" };
 const QUERY = "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
 function useFinePointer() {
-  const [fine, setFine] = useState(() => typeof window !== "undefined" && window.matchMedia(QUERY).matches);
+  const [fine, setFine] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia(QUERY);
     const update = () => setFine(mq.matches);
+    update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);

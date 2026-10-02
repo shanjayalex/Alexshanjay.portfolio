@@ -52,7 +52,7 @@ export default function Design() {
           </div>
 
           <motion.div layout className="mt-8 flex flex-col gap-8 md:gap-10" transition={{ duration: 0.6, ease }}>
-            <AnimatePresence mode="popLayout" onExitComplete={() => ScrollTrigger.refresh()}>
+            <AnimatePresence initial={false} mode="popLayout" onExitComplete={() => ScrollTrigger.refresh()}>
               {trays.map((row, t) => (
                 <motion.div
                   key={`tray-${t}`}
@@ -64,7 +64,7 @@ export default function Design() {
                   transition={{ duration: 0.6, ease }}
                 >
                   <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 md:gap-6">
-                    <AnimatePresence mode="popLayout">
+                    <AnimatePresence initial={false} mode="popLayout">
                       {row.map((design) => {
                         const index = designs.indexOf(design);
                         return (

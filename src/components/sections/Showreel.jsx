@@ -34,7 +34,7 @@ export default function Showreel() {
         <MetaRow left="Showreel 2026" right="Press play" />
 
         <div className="type-stack relative mt-14 text-center md:mt-20" style={{ "--len": fitLength(copy.title) }}>
-          <StencilTitle text={copy.title} className="text-paper-2" />
+          <StencilTitle text={copy.title} label={copy.title} className="text-paper-2" />
           <ScriptWord className="absolute right-[4%] top-[-0.42em] z-20 -rotate-8 text-[0.6em]">{copy.script}</ScriptWord>
 
           <div data-player className="relative z-10 mx-auto -mt-[0.32em] max-w-[1180px] text-base">

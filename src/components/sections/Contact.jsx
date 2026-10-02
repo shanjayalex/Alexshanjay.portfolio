@@ -59,7 +59,7 @@ export default function Contact() {
 
         <div className="type-stack relative mt-[max(0.5em,3rem)]" style={{ "--len": fitLength(title) }}>
           <span className="ghost-script pointer-events-none absolute right-[2%] top-[-0.25em] text-[0.4em]" aria-hidden="true" data-text={copy.ghost} />
-          <StencilTitle text={title} className="relative" />
+          <StencilTitle text={title} label={copy.lines.join(" ")} className="relative" />
           <ScriptWord className="absolute bottom-[-0.32em] right-[2%] z-10 -rotate-8 text-[0.62em]">{copy.script}</ScriptWord>
         </div>
 

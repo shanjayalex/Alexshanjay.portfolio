@@ -488,8 +488,8 @@ a {
   scroll-snap-type: none;
 }
 
-/* Hero trays turn into swipe rows on small screens */
-@media (max-width: 767px) {
+/* Hero trays turn into swipe rows below desktop width */
+@media (max-width: 1023px) {
   .swipe-row {
     display: flex;
     overflow-x: auto;
@@ -503,6 +503,11 @@ a {
   .swipe-row > * {
     flex: 0 0 78%;
     scroll-snap-align: center;
+  }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .swipe-row > * {
+    flex-basis: 46%;
   }
 }
 
@@ -528,6 +533,9 @@ a {
 
 /* ── Reduced motion ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  [data-preloader] {
+    display: none;
+  }
   *,
   *::before,
   *::after {

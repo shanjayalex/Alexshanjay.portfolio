@@ -12,7 +12,7 @@ The site uses an editorial "Refine Portfolio" look: paper texture, torn-paper ed
 npm install
 npm run dev       # http://localhost:5173
 npm run lint      # oxlint
-npm run build     # production build → dist/
+npm run build     # production build → dist/ (pre-rendered, see below)
 npm run preview   # serve the build locally
 ```
 
@@ -50,23 +50,34 @@ Export 1080×1080 WebP files into `public/design/` and set `image` on the matchi
 | AX.Visuals card | `studio` |
 | Skills, tools marquee | `skills`, `tools` |
 | Experience & education | `journey` |
-| Site URL, SEO title/description, OG image | `site` |
+| Services, rates, packages | `services`, `rates`, `packages` |
+| FAQ (page + FAQPage schema) | `faq` |
+| Site URL, SEO title/description, OG image, AI summary | `site` |
 
-SEO tags, Open Graph and JSON-LD (`Person` + a `VideoObject` per video) are generated from `content.js` at build time by a small plugin in `vite.config.js`.
+## SEO & AI search
+
+- **Pre-rendered HTML.** `npm run build` renders the whole app to static HTML (`src/entry-server.jsx` → `scripts/prerender.js`), then the browser hydrates it. Search engines and AI crawlers (GPTBot, ClaudeBot, PerplexityBot), which don't run JavaScript, see every section as plain text. Check with **View Page Source** on the live site.
+- **Head tags + JSON-LD** are generated from `content.js` by the `siteHead` plugin in `vite.config.js`: title, description, canonical, Open Graph, robots, geo, and one connected `@graph` with `Person`, `ProfessionalService` (AX.Visuals, with offers), `WebSite`, `FAQPage` and a `VideoObject` per video. The FAQ schema uses the same `faq` array as the visible FAQ, so they always match.
+- **Root files** in `public/`: `robots.txt` (allows AI crawlers, links the sitemap), `sitemap.xml`, `llms.txt` (plain-text summary for AI tools). These are hand-written. Update `llms.txt` if prices or services change, and bump `<lastmod>` in `sitemap.xml` (and `site.lastmod`) after content updates.
+- **Pre-render rule of thumb:** components must render the same thing on the server and on first load in the browser. Read `window`, `document`, `sessionStorage` or the current time inside `useEffect`/`useLayoutEffect`, not during render.
+
+After deploying, submit `https://www.alexshanjay.live/sitemap.xml` in Google Search Console and Bing Webmaster Tools, and validate the schema at https://validator.schema.org.
 
 ## Deploy to Vercel
 
 1. Push the repo to GitHub.
 2. In Vercel: **Add New → Project**, import the repo. It detects Vite automatically (build `npm run build`, output `dist`).
-3. Once you have the production URL, set `site.url` in `content.js` so canonical and `og:image` URLs are absolute, then redeploy.
+3. Point the domain (`www.alexshanjay.live`) at the project. `site.url` in `content.js` must match it, since canonical, `og:image` and schema URLs are built from it.
 
 ## Project structure
 
 ```
+scripts/prerender.js       bakes the rendered app into dist/index.html
 src/
+  entry-server.jsx         server render entry used by the pre-render step
   data/content.js          all content
-  components/sections/     Nav, Preloader, Hero, Showreel, Videos, Shorts,
-                           Design, Studio, About, Journey, Contact, Footer
+  components/sections/     Nav, Preloader, Hero, Showreel, Videos, Shorts, Design,
+                           Studio, Services, About, Journey, Faq, Contact, Footer
   components/ui/           Tray, StencilTitle, ScriptWord, SectionHeader, MetaRow,
                            VideoCard, ShortCard, DesignCard, PosterPlaceholder,
                            Lightbox, TornEdge, Thumb, YouTubeFacade, Marquee,
@@ -76,7 +87,9 @@ src/
 public/
   design/                  design exports (see README inside)
   images/photo.png         portrait
+  brand/                   AX.Visuals logo files (SVG + PNG)
   og.jpg                   1200×630 share image
+  llms.txt, robots.txt, sitemap.xml
 ```
 
 ## Accessibility & motion

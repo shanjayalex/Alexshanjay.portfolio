@@ -1,43 +1,96 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { profile, shorts, site, socials, studio, videos } from "./src/data/content.js";
+import { faq, packages, profile, shorts, site, socials, studio, videos } from "./src/data/content.js";
 import { thumb, watchUrl, parseId } from "./src/lib/youtube.js";
 
 const absolute = (path) => (site.url ? new URL(path, site.url).href : path);
+const id = (hash) => absolute(`/#${hash}`);
+const address = { "@type": "PostalAddress", addressLocality: "Jaffna", addressRegion: "Northern Province", addressCountry: "LK" };
 
+// One connected JSON-LD graph: Person ↔ business ↔ website ↔ FAQ ↔ videos.
 function structuredData() {
   const person = {
-    "@context": "https://schema.org",
     "@type": "Person",
+    "@id": id("person"),
     name: profile.name,
     alternateName: profile.fullName,
-    jobTitle: profile.title,
-    email: `mailto:${profile.email}`,
-    telephone: profile.phone,
+    jobTitle: ["Video Editor", "Graphic Designer"],
+    description: site.description,
+    url: absolute("/"),
     image: absolute(profile.photo),
-    address: { "@type": "PostalAddress", addressLocality: "Jaffna", addressRegion: "Northern Province", addressCountry: "LK" },
-    worksFor: { "@type": "Organization", name: studio.name, url: studio.url, logo: absolute(studio.logo) },
-    sameAs: [...socials.map((s) => s.href).filter(Boolean), studio.url],
-    ...(site.url && { url: site.url }),
+    email: `mailto:${profile.email}`,
+    telephone: profile.phone.replaceAll(" ", ""),
+    address,
+    worksFor: { "@id": id("business") },
+    knowsAbout: site.knowsAbout,
+    sameAs: socials.map((s) => s.href).filter(Boolean),
+  };
+  const business = {
+    "@type": "ProfessionalService",
+    "@id": id("business"),
+    name: studio.name,
+    alternateName: studio.alternateName,
+    description: studio.description,
+    url: absolute("/"),
+    logo: absolute(studio.logo),
+    image: absolute(site.ogImage),
+    founder: { "@id": id("person") },
+    telephone: profile.phone.replaceAll(" ", ""),
+    email: profile.email,
+    priceRange: studio.priceRange,
+    currenciesAccepted: "LKR",
+    address,
+    areaServed: [
+      { "@type": "Country", name: "Sri Lanka" },
+      { "@type": "City", name: "Jaffna" },
+    ],
+    sameAs: [studio.url, studio.instagram].filter(Boolean),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `${studio.name} content packages`,
+      itemListElement: packages.map((p) => ({
+        "@type": "Offer",
+        name: p.name,
+        price: String(p.price),
+        priceCurrency: "LKR",
+        description: p.description,
+      })),
+    },
+  };
+  const website = {
+    "@type": "WebSite",
+    "@id": id("website"),
+    url: absolute("/"),
+    name: `${profile.name} — ${studio.name}`,
+    publisher: { "@id": id("person") },
+    inLanguage: "en",
+  };
+  const faqPage = {
+    "@type": "FAQPage",
+    "@id": id("faq"),
+    mainEntity: faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
   const videoObjects = [
     ...videos.map((v) => ({ ...v, vertical: false })),
     ...shorts.map((v) => ({ ...v, vertical: true })),
   ].map((v) => ({
-    "@context": "https://schema.org",
     "@type": "VideoObject",
     name: v.title,
     description: `${v.category} by ${profile.name} — ${profile.title}.`,
     thumbnailUrl: thumb(v.id, v.vertical),
     embedUrl: `https://www.youtube.com/embed/${parseId(v.id)}`,
     url: watchUrl(v.id, v.vertical),
-    creator: { "@type": "Person", name: profile.name },
+    creator: { "@id": id("person") },
   }));
-  return [person, ...videoObjects];
+  return { "@context": "https://schema.org", "@graph": [person, business, website, faqPage, ...videoObjects] };
 }
 
-// Injects SEO tags from content.js and preloads the two hero fonts.
+// Injects SEO tags from content.js and preloads the preloader's script font.
 function siteHead() {
   return {
     name: "site-head",
@@ -49,6 +102,11 @@ function siteHead() {
           { tag: "title", children: site.title, injectTo: "head" },
           meta({ name: "description", content: site.description }),
           meta({ name: "author", content: profile.name }),
+          meta({ name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" }),
+          meta({ property: "og:locale", content: site.locale }),
+          meta({ name: "geo.region", content: site.geo.region }),
+          meta({ name: "geo.placename", content: site.geo.placename }),
+          { tag: "link", attrs: { rel: "alternate", type: "text/plain", title: "LLM summary", href: absolute("/llms.txt") }, injectTo: "head" },
           meta({ property: "og:type", content: "website" }),
           meta({ property: "og:title", content: site.title }),
           meta({ property: "og:description", content: site.description }),
@@ -61,18 +119,14 @@ function siteHead() {
           meta({ name: "twitter:image", content: absolute(site.ogImage) }),
           { tag: "script", attrs: { type: "application/ld+json" }, children: JSON.stringify(structuredData()), injectTo: "head" },
         ];
-        // First hero card thumbnail is the LCP element — make it discoverable from the HTML.
-        tags.push({
-          tag: "link",
-          attrs: { rel: "preload", as: "image", href: thumb(videos[0].id)[0], fetchpriority: "high" },
-          injectTo: "head",
-        });
         if (site.url) {
           tags.push({ tag: "link", attrs: { rel: "canonical", href: site.url }, injectTo: "head" });
           tags.push(meta({ property: "og:url", content: site.url }));
         }
         if (ctx.bundle) {
-          const preload = /(archivo-latin-wdth-normal|mrs-saint-delafield-latin-400-normal).*\.woff2$/;
+          // Only the script face: it's what the pre-rendered preloader sheet paints first.
+          // The rest load while the preloader runs, without competing with the CSS.
+          const preload = /mrs-saint-delafield-latin-400-normal.*\.woff2$/;
           for (const file of Object.keys(ctx.bundle).filter((f) => preload.test(f))) {
             tags.push({
               tag: "link",
@@ -90,6 +144,8 @@ function siteHead() {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), siteHead()],
+  // The pre-render bundle inlines dependencies (gsap ships ESM files Node can't import directly).
+  ssr: { noExternal: true },
   build: {
     rolldownOptions: {
       output: {

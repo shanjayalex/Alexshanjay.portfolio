@@ -5,11 +5,13 @@ import Logo from "../ui/Logo";
 import TornEdge from "../ui/TornEdge";
 
 function useClock(timeZone) {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState(null);
   useEffect(() => {
+    setNow(new Date());
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
+  if (!now) return "--:--:--";
   return new Intl.DateTimeFormat("en-GB", { timeZone, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(now);
 }
 
@@ -34,7 +36,7 @@ export default function Footer() {
           <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="text-paper-2/80 transition-colors hover:text-orange">
+                <a href={link.href} className="inline-block py-1 text-paper-2/80 transition-colors hover:text-orange">
                   {link.label}
                 </a>
               </li>
