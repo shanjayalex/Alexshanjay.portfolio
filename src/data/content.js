@@ -1,207 +1,229 @@
+// ─────────────────────────────────────────────────────────────
+// All site content lives here. Components never hard-code text,
+// links or video IDs. To add a video, paste its YouTube ID (or the
+// full youtu.be / youtube.com link) into `videos` or `shorts`.
+// Anything marked [EDIT] still needs a real detail before launch.
+// ─────────────────────────────────────────────────────────────
+
+export const site = {
+  // [EDIT] Set to the production domain once deployed (used for OG/canonical tags).
+  url: "",
+  title: "Alex Shanjay — Video Editor & Graphic Designer | AX.Visuals, Sri Lanka",
+  description:
+    "Alex Shanjay is a video editor and graphic designer from Jaffna, Sri Lanka, and founder of AX.Visuals. Cinematic edits, Shorts & Reels, motion graphics, colour grading and social design.",
+  ogImage: "/og.jpg",
+  updated: "2026",
+};
+
 export const profile = {
   name: "Alex Shanjay",
   fullName: "Alexmathanraj Shanjay",
   title: "Video Editor & Graphic Designer",
-  tagline: "AI Content Creation",
-  roles: ["Graphic Designer", "3D Artist", "Video Editor"],
-  location: "Manipay, Jaffna, Sri Lanka",
+  role: "Founder, AX.Visuals",
+  location: "Jaffna, Sri Lanka",
+  locationLong: "Manipay, Jaffna, Sri Lanka",
+  availability: "Available for remote editing worldwide.",
   email: "shanjayalex09@gmail.com",
   phone: "+94 76 401 5423",
   whatsapp: "https://wa.me/94764015423",
-  bio: "Creative video editor and graphic designer with a strong background in software engineering. I turn raw footage and rough ideas into polished, story-driven visuals — motion graphics, color grading, branding, and content that actually gets watched.",
-  years: "2023 — 2026",
+  photo: "/images/photo.png",
+  bio: "Creative video editor and graphic designer with a strong background in software engineering. I turn raw footage and rough ideas into polished, story-driven visuals — motion graphics, colour grading, branding, and content that actually gets watched.",
+  timezone: "Asia/Colombo",
 };
 
+// `href: null` hides the link until it's filled in.
 export const socials = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/shanjay.visuals?igsh=MXAzcjYxeWJxbHY5ZQ%3D%3D&utm_source=qr",
-  },
-  { label: "YouTube", href: "https://www.youtube.com/@AlexShan-f1t" },
-  { label: "Behance", href: "https://behance.net" },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/alex-shanjay-10501430b?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
-  },
+  { label: "Instagram", handle: "@shanjay.visuals", href: "https://www.instagram.com/shanjay.visuals" },
+  { label: "YouTube", handle: "@AlexShan-f1t", href: "https://www.youtube.com/@AlexShan-f1t" },
+  { label: "LinkedIn", handle: "Alex Shanjay", href: "https://www.linkedin.com/in/alex-shanjay-10501430b" },
+  { label: "Behance", handle: "Alex Shanjay", href: null }, // [EDIT] real Behance profile URL
 ];
 
 export const navLinks = [
+  { label: "Videos", href: "#videos" },
+  { label: "Shorts", href: "#shorts" },
+  { label: "Design", href: "#design" },
+  { label: "Studio", href: "#studio" },
   { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Showreel", href: "#showreel" },
-  { label: "Work", href: "#work" },
-  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 
-export const services = [
+// Words used by the recurring typographic header on each section.
+export const sections = {
+  hero: { meta: ["Built to Inspire", "Updated 2026"], ghost: "Edited with Heart", script: "refine", title: "Portfolio", tag: "Video & Design" },
+  reel: { script: "2026", title: "Showreel", tag: "Play the reel" },
+  videos: { meta: ["Long-form", "Episodes"], ghost: "Edited with Heart", script: "motion", title: "Videos", tag: "16:9 · Edits" },
+  shorts: { meta: ["Vertical", "9:16"], ghost: "Made for the scroll", script: "stories", title: "Shorts", tag: "Shorts & Reels" },
+  design: { meta: ["Print & Social", "1:1"], ghost: "Built with Heart", script: "crafted", title: "Design", tag: "Graphic Work" },
+  about: { meta: ["The Editor", "Since 2023"], ghost: "Built with Heart", script: "hello", title: "About", tag: "Skills & Tools" },
+  journey: { meta: ["Experience", "Education"], ghost: "Step by step", script: "path", title: "Journey", tag: "2022 — 2026" },
+  contact: { meta: ["Hire Me", "Open for work"], ghost: "Edited with Heart", script: "together", lines: ["Let's make", "something"] },
+};
+
+export const showreel = {
+  id: "VfRRBIF4I6g", // [EDIT] swap for a new reel if you cut one
+  title: "Showreel 2026",
+};
+
+// Titles below come from the YouTube upload names — [EDIT] polish if you like.
+export const videos = [
+  { id: "oLNeoaWaiGk", title: "Cinematic Reel", category: "Cinematic", year: 2026, featured: true },
+  { id: "mU3a-WvqPUw", title: "Nallur — Cinematic Reel", category: "Colour Grading", year: 2026 },
+  { id: "WOBtJHS2HF4", title: "Cinematic Fight", category: "Action & VFX", year: 2026 },
+  { id: "_zKvcEZlW2I", title: "Love Reel", category: "Storytelling", year: 2026 },
+  { id: "O1MLFrXW_3Y", title: "Nallur — Festival Cut", category: "Cinematic", year: 2026 },
+  { id: "VnaE8Qpd1GI", title: "Birthday Reel — Vol. 01", category: "Event Edit", year: 2026 },
+  { id: "-jZy4vw_PzM", title: "Birthday Reel — Vol. 02", category: "Event Edit", year: 2026 },
+  { id: "QYIsp8kohJc", title: "Birthday Reel — Vol. 03", category: "Event Edit", year: 2026 },
+];
+
+export const shorts = [
+  { id: "k8ilFbrGgGQ", title: "Product Ad — 01", category: "Social Ad", year: 2026 },
+  { id: "vpLkwCO7nB8", title: "Product Ad — 02", category: "Social Ad", year: 2026 },
+  { id: "FE2bpUpP7DA", title: "Product Ad — 03", category: "Social Ad", year: 2026 },
+  { id: "wvOW2gVi9sk", title: "Product Ad — 04", category: "Social Ad", year: 2026 },
+  { id: "DbFmiYm_jmk", title: "Product Ad — 05", category: "Social Ad", year: 2026 },
+  { id: "vKySIb66TRs", title: "Restaurant Ad", category: "Restaurant", year: 2026 },
+];
+
+// Older work, shown behind "View older work".
+export const archive = [
+  { id: "DAAUznDyUCI", title: "3D Lyrics Edit", category: "3D Modeling & Animation" },
+  { id: "edIdbprvCqk", title: "Brand Campaign Edit", category: "Video Editing" },
+  { id: "81nFr4PUqV4", title: "Restaurant Promo — The Coconut Island", category: "Social Content" },
+  { id: "ds1bUCDzdPU", title: "Brand Reel — Chroma Global", category: "Motion Graphics" },
+  { id: "qj3VsmlQFlI", title: "Social Reel", category: "Motion Graphics" },
+  { id: "1ZUUz93QlVs", title: "Social Reel", category: "Color Grading" },
+  { id: "64OkUl-1k3s", title: "Social Reel", category: "Visual Effects" },
+  { id: "vlrc5nGsHw4", title: "Social Reel", category: "Storytelling" },
+  { id: "EyiSXQfPhu4", title: "Food & Restaurant Content", category: "Social Content" },
+  { id: "gOilug_Zn8I", title: "Restaurant Edit", category: "Social Content" },
+  { id: "GZD6bOdMoQI", title: "Promotional Video", category: "Video Editing" },
+  { id: "yBrnS6HTHUQ", title: "Gym Edit", category: "Motion Graphics" },
+];
+
+export const designFilters = ["All", "Social Posts", "Branding", "Restaurant", "Posters"];
+
+// [EDIT] Export each design as a 1080×1080 WebP into /public/design/ and set
+// `image` (e.g. "/design/01-ax-launch.webp"). While `image` is null a
+// typographic placeholder poster is shown instead.
+export const designs = [
   {
-    title: "Video Editing",
-    icon: "video",
-    desc: "Narrative-first edits for promos, socials, and long-form content — paced to keep people watching.",
-    deliverables: [
-      "Promo & social media edits",
-      "Color grading in DaVinci Resolve",
-      "Sound design & pacing",
-      "Multi-platform exports",
-    ],
-    color: "cobalt",
+    id: "ax-instagram",
+    title: "AX.Visuals — Instagram post",
+    category: "Social Posts",
+    image: null, // "/design/01-ax-instagram.webp"
+    href: "https://www.instagram.com/p/Dd9xJcnTEEn/",
+    caption: "Launch post for the AX.Visuals Instagram feed.",
   },
   {
-    title: "Graphic Design",
-    icon: "design",
-    desc: "Social posts, banners, and marketing collateral that keep a brand's identity sharp and consistent.",
-    deliverables: [
-      "Branding & logo systems",
-      "Social media templates",
-      "Marketing collateral & banners",
-      "Print & digital layouts",
-    ],
-    color: "yellow",
+    id: "coconut-island-promo",
+    title: "The Coconut Island — Weekend promo",
+    category: "Restaurant",
+    image: null, // "/design/02-coconut-promo.webp"
+    caption: "Promo poster for The Coconut Island restaurant.",
   },
   {
-    title: "3D Modeling & Animation",
-    icon: "cube",
-    desc: "Compositing, camera tracking, and motion work using Cinema 4D, Blender, and Mocha Pro.",
-    deliverables: [
-      "3D modeling & texturing",
-      "Camera tracking & compositing",
-      "Motion graphics & VFX",
-      "Product / brand renders",
-    ],
-    color: "lime",
+    id: "brand-identity",
+    title: "Brand identity system",
+    category: "Branding",
+    image: null, // "/design/03-brand-identity.webp"
+    caption: "Logo, colour and type system for a local brand.",
+  },
+  {
+    id: "event-poster",
+    title: "Event poster",
+    category: "Posters",
+    image: null, // "/design/04-event-poster.webp"
+    caption: "Event poster with bold display type.",
+  },
+  {
+    id: "coconut-island-menu",
+    title: "The Coconut Island — Menu post",
+    category: "Restaurant",
+    image: null, // "/design/05-coconut-menu.webp"
+    caption: "Menu highlight post for social.",
+  },
+  {
+    id: "social-carousel",
+    title: "Social carousel",
+    category: "Social Posts",
+    image: null, // "/design/06-social-carousel.webp"
+    caption: "Carousel post series for a brand's Instagram.",
   },
 ];
 
+export const studio = {
+  name: "AX.Visuals",
+  headline: "video production for businesses.",
+  subline: "Reels, photos and brand films for restaurants, hotels, products and brands. Available islandwide 🇱🇰",
+  services: ["Social Content Reels", "Product & Food Shoots", "Brand Films"],
+  pricing: "Packages from Rs. 25,000",
+  url: "https://axvisuals-five.vercel.app/",
+  instagram: null, // [EDIT] AX.Visuals Instagram URL — the button appears once set
+  founded: "2026", // [EDIT] confirm founding year
+  script: "studio",
+};
+
 export const skills = [
   { label: "Video Editing", value: 95 },
+  { label: "Visual Storytelling", value: 92 },
   { label: "Motion Graphics", value: 90 },
   { label: "Graphic Design", value: 88 },
-  { label: "Visual Storytelling", value: 92 },
   { label: "Visual Effects", value: 85 },
   { label: "Illustration", value: 80 },
 ];
 
-export const software = [
+export const tools = [
   "After Effects",
   "Premiere Pro",
-  "Blender",
+  "DaVinci Resolve",
   "Photoshop",
   "Illustrator",
-  "3D Modeling",
-  "Motion Graphics",
-  "Color Grading",
-  "DaVinci Resolve",
+  "Blender",
   "Cinema 4D",
   "Mocha Pro",
   "Figma",
 ];
 
-export const experience = [
+export const journey = [
   {
+    year: "2026",
+    role: "Founder",
+    org: "AX.Visuals",
+    kind: "Studio",
+    text: "Video production studio for businesses across Sri Lanka.",
+  },
+  {
+    year: "2026",
     role: "Video Editor",
     org: "Chroma Global",
-    year: "2026",
-    points: [
-      "Edited promotional and social media videos with motion graphics, color grading, and visual effects.",
-      "Delivered high-quality marketing content on tight turnarounds.",
-    ],
+    kind: "Experience",
+    text: "Promotional and social media videos with motion graphics, colour grading and VFX, on tight turnarounds.",
   },
   {
+    year: "2025",
     role: "Graphic Designer",
     org: "The Coconut Island",
-    year: "2025",
-    points: [
-      "Designed social media posts, promotional banners, and marketing materials.",
-      "Created food and restaurant promotional videos and social reels.",
-      "Built branding assets that kept a consistent visual identity across campaigns.",
-    ],
-  },
-];
-
-export const education = [
-  {
-    school: "ESOFT Metro Campus",
-    program: "Higher National Diploma in Software Engineering",
-    year: "2024–2026",
+    kind: "Experience",
+    text: "Social posts, promo banners, food & restaurant videos and reels, consistent brand identity.",
   },
   {
-    school: "ESOFT Metro Campus",
-    program: "Diploma in Information Technology",
-    year: "2023–2024",
+    year: "2024–26",
+    role: "HND in Software Engineering",
+    org: "ESOFT Metro Campus",
+    kind: "Education",
   },
   {
-    school: "Manipay Hindu College",
-    program: "G.C.E Ordinary Level",
-    year: "2022–2023",
-  },
-];
-
-export const showreel = {
-  youtubeId: "VfRRBIF4I6g",
-  title: "2026 Showreel",
-};
-
-export const work = [
-  {
-    id: "DAAUznDyUCI",
-    title: "3D Lyrics Edit",
-    category: "3D Modeling & Animation",
-    featured: true,
+    year: "2023–24",
+    role: "Diploma in IT",
+    org: "ESOFT Metro Campus",
+    kind: "Education",
   },
   {
-    id: "edIdbprvCqk",
-    title: "Brand Campaign Edit",
-    category: "Video Editing",
-  },
-  {
-    id: "81nFr4PUqV4",
-    title: "Restaurant Promo — The Coconut Island",
-    category: "Social Content",
-  },
-  {
-    id: "ds1bUCDzdPU",
-    title: "Brand Reel — Chroma Global",
-    category: "Motion Graphics",
-  },
-  {
-    id: "qj3VsmlQFlI",
-    title: "Social Reel",
-    category: "Motion Graphics",
-  },
-  {
-    id: "1ZUUz93QlVs",
-    title: "Social Reel",
-    category: "Color Grading",
-  },
-  {
-    id: "64OkUl-1k3s",
-    title: "Social Reel",
-    category: "Visual Effects",
-  },
-  {
-    id: "vlrc5nGsHw4",
-    title: "Social Reel",
-    category: "Storytelling",
-  },
-  {
-    id: "EyiSXQfPhu4",
-    title: "Food & Restaurant Content",
-    category: "Social Content",
-  },
-  {
-    id: "gOilug_Zn8I",
-    title: "Restaurant Edit",
-    category: "Social Content",
-  },
-  {
-    id: "GZD6bOdMoQI",
-    title: "Promotional Video",
-    category: "Video Editing",
-  },
-  {
-    id: "yBrnS6HTHUQ",
-    title: "Gym Edit",
-    category: "Motion Graphics",
+    year: "2022–23",
+    role: "G.C.E O/L",
+    org: "Manipay Hindu College",
+    kind: "Education",
   },
 ];
