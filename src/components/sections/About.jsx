@@ -7,11 +7,11 @@ import SectionHeader from "../ui/SectionHeader";
 
 function Polaroid() {
   return (
-    <figure data-polaroid className="relative mx-auto w-full max-w-[420px] -rotate-3 bg-white p-3 pb-14 shadow-[0_40px_70px_-30px_rgb(0_0_0/0.55),0_6px_14px_-6px_rgb(0_0_0/0.2)] md:p-4 md:pb-16">
+    <figure data-polaroid className="relative mx-auto w-full max-w-[420px] self-start -rotate-3 bg-white p-3 pb-14 shadow-[0_40px_70px_-30px_rgb(0_0_0/0.55),0_6px_14px_-6px_rgb(0_0_0/0.2)] md:p-4 md:pb-16">
       <span className="tape -left-8 top-5 -rotate-[38deg]" aria-hidden="true" />
       <span className="tape -right-8 bottom-24 -rotate-[38deg]" aria-hidden="true" />
       <div className="aspect-[4/5] overflow-hidden bg-paper">
-        <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="840" height="1050" loading="lazy" className="h-full w-full object-cover grayscale-[15%]" />
+        <img src={profile.photo} alt={`Portrait of ${profile.name}`} width="840" height="1050" loading="lazy" className="h-full w-full object-cover object-top grayscale-[15%]" />
       </div>
       <figcaption className="serif-italic absolute inset-x-0 bottom-3 text-center text-2xl text-ink md:bottom-4">
         {profile.name.split(" ")[0]}, {profile.location.split(",")[0]} — 2026
