@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "../../lib/gsap";
 
-const LABELS = { play: "Play", view: "View", drag: "← Drag →" };
+const LABELS = { play: "Play", view: "View", drag: "← Drag →", scrub: "Scrub" };
 const QUERY = "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
 function useFinePointer() {
@@ -16,7 +16,7 @@ function useFinePointer() {
   return fine;
 }
 
-// Ink dot + lagging ring. Elements opt into labels with data-cursor="play|view|drag".
+// Ink dot + lagging ring. Elements opt into labels with data-cursor="play|view|drag|scrub".
 export default function CustomCursor() {
   const enabled = useFinePointer();
   const dotRef = useRef(null);
@@ -68,6 +68,7 @@ export default function CustomCursor() {
         play: "bg-orange text-ink border-orange",
         view: "bg-ink text-paper-2 border-ink",
         drag: "bg-paper-2 text-ink border-ink",
+        scrub: "bg-ink/80 text-orange border-orange",
       }[mode]
     : hover
       ? "border-orange bg-orange/10"

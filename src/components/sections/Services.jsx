@@ -28,7 +28,7 @@ export default function Services() {
               </li>
             ))}
 
-            <li data-card className="paper-card flex min-h-[220px] flex-col justify-between !border-orange-deep/30 !bg-orange p-6 text-ink md:p-8">
+            <li data-card className="paper-card flex min-h-[220px] flex-col justify-between !border-orange-deep/30 !bg-orange p-6 text-ink sm:col-span-2 md:p-8 lg:col-span-3">
               <span className="mono-label text-ink">
                 <b className="font-bold">Rates</b> · LKR
               </span>

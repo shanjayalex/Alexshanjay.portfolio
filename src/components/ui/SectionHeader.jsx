@@ -16,7 +16,7 @@ export default function SectionHeader({ meta, ghost, script, title, tag, ring = 
           data-text={ghost}
           />
         )}
-        <StencilTitle text={title} ring={ring} id={id} label={title.replaceAll("\n", " ")} className="relative" />
+        <StencilTitle text={title} ring={ring} id={id} label={title.replaceAll("\n", " ")} className="rgb-split relative" />
         <ScriptWord className="absolute bottom-[42%] left-[0.5%] z-10 -rotate-8 text-[0.55em]">{script}</ScriptWord>
         {tag && (
           <span className="mono-label absolute bottom-[calc(100%+0.9rem)] right-0 text-right">

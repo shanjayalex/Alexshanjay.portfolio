@@ -6,6 +6,7 @@ import { gsap, DESKTOP_MOTION, MOTION, SCRIPT_HIDDEN, SCRIPT_SHOWN } from "../..
 import { onIntroDone } from "../../lib/intro";
 import { useLightbox } from "../../lib/lightbox";
 import { fitLength } from "../../lib/type";
+import DepthPortrait from "../ui/DepthPortrait";
 import DesignCard from "../ui/DesignCard";
 import MagneticButton from "../ui/MagneticButton";
 import MetaRow from "../ui/MetaRow";
@@ -26,6 +27,7 @@ export default function Hero() {
       const chars = el.querySelectorAll("[data-title] .char");
       const cards = el.querySelectorAll("[data-card]");
       gsap.set(chars, { yPercent: 110 });
+      gsap.set("[data-portrait]", { yPercent: 40, clipPath: "inset(100% 0% 0% 0%)" });
       gsap.set("[data-script]", { clipPath: SCRIPT_HIDDEN });
       gsap.set(cards, { y: 90, rotate: (i) => (i % 2 ? 4 : -4), autoAlpha: 0 });
       gsap.set("[data-fade]", { autoAlpha: 0, y: 20 });
@@ -33,7 +35,9 @@ export default function Hero() {
       const intro = gsap
         .timeline({ paused: true })
         .to(chars, { yPercent: 0, stagger: 0.04, duration: 1.2, ease: "expo.out" })
-        .to("[data-script]", { clipPath: SCRIPT_SHOWN, duration: 1.3, ease: "power2.inOut" }, 0.35)
+        // The portrait rises from behind the baseline, then "refine" writes on over his shoulder.
+        .to("[data-portrait]", { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "expo.out" }, 0.45)
+        .to("[data-script]", { clipPath: SCRIPT_SHOWN, duration: 1.3, ease: "power2.inOut" }, 1.05)
         .to(cards, { y: 0, rotate: 0, autoAlpha: 1, stagger: 0.07, duration: 1.2, ease: "expo.out" }, 0.15)
         .to("[data-fade]", { autoAlpha: 1, y: 0, stagger: 0.08, duration: 0.9, ease: "power3.out" }, 0.6);
 
@@ -45,6 +49,9 @@ export default function Hero() {
       gsap.to("[data-tray-top]", { yPercent: -18, ease: "none", scrollTrigger: scrub });
       gsap.to("[data-tray-bottom]", { yPercent: 10, ease: "none", scrollTrigger: scrub });
       gsap.to("[data-title]", { scale: 0.92, ease: "none", scrollTrigger: scrub });
+      // The word (and its masked front copy, which must stay in register) trails the page;
+      // the portrait in DepthPortrait trails less, so he drifts forward out of the type.
+      gsap.to(["[data-back-word]", "[data-front-word]"], { y: () => el.offsetHeight * 0.12, ease: "none", scrollTrigger: { ...scrub, invalidateOnRefresh: true } });
       gsap.to("[data-script-wrap]", { x: 40, y: -30, rotate: -3, ease: "none", scrollTrigger: scrub });
     });
   });
@@ -67,18 +74,21 @@ export default function Hero() {
         </Tray>
       </div>
 
-      {/* Centre type stack — ghost script, orange script, stencil PORTFOLIO, small tag */}
+      {/* Centre type stack — ghost script, stencil PORTFOLIO, portrait, masked front copy, orange script, small tag */}
       <div
-        className="type-stack pointer-events-none relative z-10 mx-auto -mb-[0.1em] mt-[max(0.42em,3.5rem)] max-w-[1600px] text-center"
+        className="type-stack pointer-events-none relative z-10 mx-auto -mb-[0.1em] mt-[calc(66vw+2.5rem)] max-w-[1600px] text-center md:mt-[max(0.9em,3.5rem)]"
         style={{ "--len": fitLength(copy.title) }}
       >
         <div data-title className="relative origin-center">
           <span className="ghost-script absolute bottom-[78%] left-1/2 -translate-x-1/2 text-[0.42em]" aria-hidden="true" data-text={copy.ghost} />
-          <StencilTitle as="h1" text={copy.title} ring reveal={false} label={`${profile.name} — Video & Design Portfolio`} />
-          <span data-script-wrap className="absolute bottom-[34%] left-[1%] z-20 inline-block">
+          <div data-back-word className="relative">
+            <StencilTitle as="h1" text={copy.title} ring reveal={false} label={`${profile.name} — Video & Design Portfolio`} />
+          </div>
+          <DepthPortrait title={copy.title} />
+          <span data-script-wrap className="absolute bottom-[34%] left-[1%] z-20 inline-block md:bottom-[26%] md:left-[calc(50%+0.48em)]">
             <span data-script className="script inline-block -rotate-8 px-[0.1em] text-[0.6em]" aria-hidden="true" data-text={copy.script} />
           </span>
-          <span data-fade className="mono-label absolute bottom-[calc(100%+0.9rem)] right-[2%] text-ink">
+          <span data-fade className="mono-label absolute bottom-[calc(100%+0.9rem)] right-[2%] hidden text-ink md:inline">
             <b className="font-bold">{copy.tag}</b>
           </span>
         </div>

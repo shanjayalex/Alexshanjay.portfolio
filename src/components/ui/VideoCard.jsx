@@ -1,6 +1,5 @@
 import { FiPlay } from "react-icons/fi";
-import { thumb } from "../../lib/youtube";
-import Thumb from "./Thumb";
+import ScrubThumb from "./ScrubThumb";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -19,7 +18,7 @@ export default function VideoCard({ video, number, onOpen, variant = "default", 
       aria-label={`Play ${video.title}`}
     >
       <span className={`thumb-zoom relative block aspect-video overflow-hidden bg-tray ${compact ? "rounded-[12px]" : "rounded-[14px]"}`}>
-        <Thumb sources={thumb(video.id)} alt="" eager={eager} />
+        <ScrubThumb id={video.id} eager={eager} />
         <span className="play-badge">
           <span>
             <FiPlay className="ml-0.5 h-6 w-6 fill-current" />

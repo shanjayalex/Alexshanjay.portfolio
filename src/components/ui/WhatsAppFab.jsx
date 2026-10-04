@@ -30,7 +30,7 @@ export default function WhatsAppFab() {
       aria-label="Chat on WhatsApp"
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}
-      className={`fixed bottom-5 right-5 z-[80] grid h-14 w-14 place-items-center rounded-full bg-orange text-ink shadow-[0_14px_30px_-10px_rgb(0_0_0/0.5)] transition-[background-color,transform,opacity] duration-300 hover:scale-105 hover:bg-orange-deep md:bottom-8 md:right-8 ${
+      className={`fixed bottom-5 right-5 z-[80] grid h-14 w-14 place-items-center rounded-full bg-orange text-ink shadow-[0_14px_30px_-10px_rgb(0_0_0/0.5)] transition-[background-color,transform,opacity] duration-300 hover:scale-105 hover:bg-orange-deep md:bottom-8 md:right-8 lg:bottom-[76px] ${
         hidden ? "pointer-events-none translate-y-4 opacity-0" : ""
       }`}
     >

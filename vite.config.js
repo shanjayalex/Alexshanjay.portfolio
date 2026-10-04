@@ -7,6 +7,7 @@ import { thumb, watchUrl, parseId } from "./src/lib/youtube.js";
 const absolute = (path) => (site.url ? new URL(path, site.url).href : path);
 const id = (hash) => absolute(`/#${hash}`);
 const address = { "@type": "PostalAddress", addressLocality: "Jaffna", addressRegion: "Northern Province", addressCountry: "LK" };
+const personAddress = { "@type": "PostalAddress", addressLocality: profile.location.split(",")[0], addressCountry: "LK" };
 
 // One connected JSON-LD graph: Person ↔ business ↔ website ↔ FAQ ↔ videos.
 function structuredData() {
@@ -19,10 +20,11 @@ function structuredData() {
     description: site.description,
     url: absolute("/"),
     image: absolute(profile.photo),
+    homeLocation: { "@type": "Place", name: profile.locationLong },
     email: `mailto:${profile.email}`,
     telephone: profile.phone.replaceAll(" ", ""),
-    address,
-    worksFor: { "@id": id("business") },
+    address: personAddress,
+    worksFor: [{ "@type": "Organization", name: profile.now.org }, { "@id": id("business") }],
     knowsAbout: site.knowsAbout,
     sameAs: socials.map((s) => s.href).filter(Boolean),
   };

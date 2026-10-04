@@ -75,7 +75,7 @@ export default function Studio() {
               <p>
                 <b className="font-bold">Card No.</b> 001
               </p>
-              <p>{profile.location}</p>
+              <p>{studio.location}</p>
               <p>Founded by {profile.name}</p>
             </div>
           </header>

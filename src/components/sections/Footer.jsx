@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FiArrowUp } from "react-icons/fi";
 import { navLinks, profile, studio } from "../../data/content";
+import EndCredits from "../ui/EndCredits";
 import Logo from "../ui/Logo";
 import TornEdge from "../ui/TornEdge";
 
@@ -51,8 +52,10 @@ export default function Footer() {
         </div>
       </div>
 
+      <EndCredits />
+
       <p
-        className="display pointer-events-none mt-12 select-none whitespace-nowrap text-center text-paper-2 [font-size:clamp(3rem,12vw,20rem)] [margin-bottom:-0.17em] md:mt-20"
+        className="display pointer-events-none mt-0 select-none whitespace-nowrap text-center text-paper-2 [font-size:clamp(3rem,12vw,20rem)] [margin-bottom:-0.17em] md:mt-20"
         aria-hidden="true"
       >
         {studio.name}

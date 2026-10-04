@@ -35,7 +35,7 @@ export default function StencilTitle({ text, as: Tag = "h2", ring = false, revea
   });
 
   return (
-    <Tag ref={ref} id={id} className={`display ${className}`} style={style} aria-label={label ?? lines.join(" ")}>
+    <Tag ref={ref} id={id} className={`display squash ${className}`} style={style} aria-label={label ?? lines.join(" ")}>
       {lines.map((line, li) => (
         <span key={li} className="stencil block whitespace-nowrap" aria-hidden="true">
           {[...line].map((ch, ci) => {

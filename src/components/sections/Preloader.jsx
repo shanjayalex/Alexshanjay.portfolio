@@ -1,11 +1,15 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { profile, sections } from "../../data/content";
-import { gsap, prefersReducedMotion, SCRIPT_HIDDEN, SCRIPT_SHOWN } from "../../lib/gsap";
+import { profile, sections, slate } from "../../data/content";
+import { gsap, prefersReducedMotion } from "../../lib/gsap";
 import { finishIntro } from "../../lib/intro";
 import { lockScroll, unlockScroll } from "../../lib/scroll";
 import TornEdge from "../ui/TornEdge";
 
 const SEEN_KEY = "ax-preloaded";
+const FPS = 24;
+const pad = (n) => String(n).padStart(2, "0");
+const timecode = (frames) => `00:00:${pad(Math.floor(frames / FPS))}:${pad(frames % FPS)}`;
+const STICK_OPEN = -25;
 
 function seenThisSession() {
   try {
@@ -23,9 +27,10 @@ function markSeen() {
   }
 }
 
-// "Paper drop": the torn sheet is part of the pre-rendered HTML, so it is the
-// first thing painted. Once JS runs, a counter goes 000→100 while the script
-// word writes itself on, then the sheet tears away to reveal the hero.
+// "Slate": the torn sheet with a clapperboard is part of the pre-rendered HTML,
+// so it is the first thing painted. Once JS runs, the slate's timecode rolls
+// 00:00:00:00 → 00:00:02:00, the clapper snaps shut (with a small shake), then
+// the sheet tears away to reveal the hero.
 // Repeat visits in a session just fade it; reduced motion skips it (CSS hides it).
 export default function Preloader() {
   const ref = useRef(null);
@@ -61,16 +66,19 @@ export default function Preloader() {
       const count = { v: 0 };
       const tl = gsap.timeline({ onComplete: finish });
 
-      tl.to(count, {
-          v: 100,
+      tl.from("[data-slate]", { y: 40, autoAlpha: 0, duration: 0.6, ease: "expo.out" }, 0)
+        .to(count, {
+          v: 2 * FPS,
           duration: 1.4,
-          ease: "power2.inOut",
+          ease: "power1.inOut",
           onUpdate: () => {
-            counter.textContent = String(Math.round(count.v)).padStart(3, "0");
+            counter.textContent = timecode(Math.round(count.v));
           },
-        }, 0)
-        .fromTo("[data-script]", { clipPath: SCRIPT_HIDDEN }, { clipPath: SCRIPT_SHOWN, duration: 1.1, ease: "power2.inOut" }, 0.15)
-        .to("[data-sheet]", { yPercent: -112, duration: 1, ease: "expo.inOut" }, "+=0.1")
+        }, 0.1)
+        // Clap: the stick snaps shut and the card jolts.
+        .to("[data-stick]", { rotate: 0, duration: 0.18, ease: "power4.in" })
+        .to("[data-slate]", { keyframes: { x: [0, -4, 4, -3, 2, 0], y: [0, 2, -2, 1, 0, 0] }, duration: 0.24, ease: "none" })
+        .to("[data-sheet]", { yPercent: -112, duration: 1, ease: "expo.inOut" }, "+=0.15")
         .add(finishIntro, "-=0.8");
     }, el);
 
@@ -100,20 +108,37 @@ export default function Preloader() {
           </div>
 
           <div className="grid place-items-center">
-            <span
-              data-script
-              className="script -rotate-8 px-[0.2em] text-[clamp(6rem,24vw,20rem)]"
-              style={{ clipPath: SCRIPT_HIDDEN }}
-              aria-hidden="true"
-              data-text={sections.hero.script}
-            />
+            <div data-slate className="w-[min(560px,100%)]">
+              <div
+                data-stick
+                className="slate-stripes h-12 origin-bottom-left rounded-t-[6px] border-2 border-ink md:h-14"
+                style={{ transform: `rotate(${STICK_OPEN}deg)` }}
+              />
+              <div className="slate-stripes mt-1 h-12 border-2 border-ink md:h-14" />
+              <div className="rounded-b-[10px] border-2 border-t-0 border-ink bg-paper-2 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.5)]">
+                <dl className="grid grid-cols-6 font-mono uppercase text-ink">
+                  {slate.map(([k, v], i) => (
+                    <div key={k} className={`border-b-2 border-ink px-4 py-3 ${i < 2 ? "col-span-3" : "col-span-2"} ${[0, 2, 3].includes(i) ? "border-r-2" : ""}`}>
+                      <dt className="text-[10px] font-semibold tracking-[0.2em] text-ink-2">{k}</dt>
+                      <dd className="text-[clamp(1rem,2.6vw,1.5rem)] font-semibold leading-tight">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="flex items-end justify-between gap-4 px-4 py-3">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-2">TC</span>
+                  <span data-count className="font-mono text-[clamp(1.6rem,6vw,3rem)] font-medium leading-none tabular-nums tracking-[-0.02em] text-ink">
+                    {timecode(0)}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="flex items-end justify-between">
-            <span className="mono-label max-w-[14rem]">Video editor &amp; graphic designer — Jaffna, Sri Lanka</span>
-            <span data-count className="font-mono text-[clamp(3rem,9vw,7rem)] font-medium leading-none tracking-[-0.04em] text-ink">
-              000
+            <span className="mono-label max-w-[16rem]">
+              {profile.title} — {profile.location}
             </span>
+            <span className="script -rotate-8 px-[0.2em] text-[clamp(2.5rem,6vw,4.5rem)]" aria-hidden="true" data-text={sections.hero.script} />
           </div>
         </div>
       </div>

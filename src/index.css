@@ -523,6 +523,173 @@ a {
   backdrop-filter: blur(1px);
 }
 
+/* ── Hero depth portrait ──────────────────────────────────── */
+/* Mobile: the portrait sits above the word (70vw). Desktop: it stands in it,
+   ~1.3× the word's height, with a masked front copy over the suit. */
+.depth-portrait {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  z-index: 1;
+  width: 70vw;
+  aspect-ratio: 1100 / 1041;
+  translate: -50% 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 14%);
+  mask-image: linear-gradient(to top, transparent, #000 14%);
+}
+.depth-front {
+  display: none;
+}
+@media (min-width: 768px) {
+  .depth-portrait {
+    --ph: 1.55em;
+    bottom: 0.02em;
+    width: auto;
+    height: var(--ph);
+    -webkit-mask-image: linear-gradient(to top, transparent, #000 12%), linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(to top, transparent, #000 12%), linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  /* Only the lower letters, only across his shoulders (not the shirt front). */
+  .depth-front {
+    --half: calc(1.55em * 0.5283);
+    --gap: 0.17em;
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    display: block;
+    pointer-events: none;
+    -webkit-mask-image:
+      linear-gradient(
+        to right,
+        transparent calc(50% - var(--half)),
+        #000 calc(50% - var(--half)) calc(50% - var(--gap)),
+        transparent calc(50% - var(--gap)) calc(50% + var(--gap)),
+        #000 calc(50% + var(--gap)) calc(50% + var(--half)),
+        transparent calc(50% + var(--half))
+      ),
+      linear-gradient(to bottom, transparent 55%, #000 55%);
+    mask-image:
+      linear-gradient(
+        to right,
+        transparent calc(50% - var(--half)),
+        #000 calc(50% - var(--half)) calc(50% - var(--gap)),
+        transparent calc(50% - var(--gap)) calc(50% + var(--gap)),
+        #000 calc(50% + var(--gap)) calc(50% + var(--half)),
+        transparent calc(50% + var(--half))
+      ),
+      linear-gradient(to bottom, transparent 55%, #000 55%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+}
+
+/* ── Velocity squash + RGB-split hover on display words ───── */
+.squash {
+  font-variation-settings: "wdth" var(--squash-wdth, 125), "wght" 900;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .rgb-split:hover {
+    animation: rgb-split 0.4s var(--ease-out-expo) both;
+  }
+}
+@keyframes rgb-split {
+  from {
+    text-shadow:
+      2px 0 0 rgb(255 40 60 / 0.85),
+      -2px 0 0 rgb(0 220 255 / 0.85);
+  }
+  to {
+    text-shadow:
+      0 0 0 rgb(255 40 60 / 0),
+      0 0 0 rgb(0 220 255 / 0);
+  }
+}
+
+/* ── REC dot ──────────────────────────────────────────────── */
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e5322d;
+  box-shadow: 0 0 0 0 rgb(229 50 45 / 0.5);
+  animation: rec-pulse 1.6s ease-out infinite;
+}
+@keyframes rec-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(229 50 45 / 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px rgb(229 50 45 / 0);
+  }
+}
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2fb35a;
+  border: 2px solid var(--paper);
+}
+
+/* ── Clapperboard slate (preloader) ───────────────────────── */
+.slate-stripes {
+  background: repeating-linear-gradient(-55deg, var(--ink) 0 22px, var(--paper-2) 22px 44px);
+}
+
+/* ── Journey film frames ──────────────────────────────────── */
+.film-frame {
+  position: relative;
+  padding-inline: 34px;
+}
+.film-frame::before,
+.film-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22px;
+  background-color: var(--ink);
+  background-image: radial-gradient(circle at 50% 50%, var(--paper) 0 4px, transparent 4.5px);
+  background-size: 22px 18px;
+  background-position: 0 4px;
+}
+.film-frame::before {
+  left: 0;
+}
+.film-frame::after {
+  right: 0;
+}
+@media (min-width: 768px) {
+  .film-frame {
+    padding-inline: 52px;
+  }
+  .film-frame::before,
+  .film-frame::after {
+    width: 28px;
+    background-image: radial-gradient(circle at 50% 50%, var(--paper) 0 5px, transparent 5.5px);
+    background-size: 28px 22px;
+  }
+}
+/* Year fits its column whatever its length ("2025" … "Apr–Jul 2026"). */
+.journey-year {
+  font-size: min(9rem, calc(100cqw / (var(--len, 4) * 0.9)));
+}
+.now-stamp {
+  display: inline-block;
+  padding: 0.15em 0.55em;
+  border: 2px solid var(--orange-deep);
+  border-radius: 6px;
+  color: var(--orange-ink);
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 125, "wght" 900;
+  letter-spacing: 0.06em;
+  rotate: -6deg;
+  box-shadow: inset 0 0 0 2px rgb(232 137 28 / 0.25);
+}
+
 /* ── Cursor ───────────────────────────────────────────────── */
 .has-cursor,
 .has-cursor * {
@@ -535,6 +702,9 @@ a {
 @media (prefers-reduced-motion: reduce) {
   [data-preloader] {
     display: none;
+  }
+  .rec-dot {
+    animation: none;
   }
   *,
   *::before,

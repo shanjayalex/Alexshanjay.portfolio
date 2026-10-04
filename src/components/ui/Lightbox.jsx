@@ -93,7 +93,7 @@ export default function LightboxProvider({ children }) {
     };
   }, [isOpen, close, step]);
 
-  const value = useMemo(() => ({ open }), [open]);
+  const value = useMemo(() => ({ open, isOpen }), [open, isOpen]);
   const item = state?.items[state.index];
   const multiple = (state?.items.length ?? 0) > 1;
 

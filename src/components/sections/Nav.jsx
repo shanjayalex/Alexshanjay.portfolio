@@ -4,6 +4,7 @@ import { navLinks, profile } from "../../data/content";
 import { lockScroll, unlockScroll } from "../../lib/scroll";
 import Logo from "../ui/Logo";
 import MagneticButton from "../ui/MagneticButton";
+import NowChip from "../ui/NowChip";
 
 function Monogram() {
   return (
@@ -11,7 +12,7 @@ function Monogram() {
       <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-paper-2">
         <Logo variant="mark" title={null} className="h-[21px] w-auto translate-y-[-0.5px]" />
       </span>
-      <span className="mono-label hidden text-ink sm:inline">
+      <span className="mono-label hidden text-ink sm:inline lg:hidden 2xl:inline">
         <b className="font-bold">Alex</b> Shanjay
       </span>
     </a>
@@ -60,7 +61,10 @@ export default function Nav() {
           className="mx-auto flex h-[var(--nav-h)] max-w-[1600px] items-center justify-between gap-4 rounded-full border border-ink/10 bg-paper-2/80 pl-3 pr-3 shadow-[0_10px_30px_-18px_rgb(0_0_0/0.5)] backdrop-blur-md"
           aria-label="Main"
         >
-          <Monogram />
+          <div className="flex min-w-0 items-center gap-3">
+            <Monogram />
+            <NowChip />
+          </div>
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (

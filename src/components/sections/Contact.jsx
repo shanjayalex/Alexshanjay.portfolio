@@ -63,7 +63,19 @@ export default function Contact() {
           <ScriptWord className="absolute bottom-[-0.32em] right-[2%] z-10 -rotate-8 text-[0.62em]">{copy.script}</ScriptWord>
         </div>
 
-        <ul className="mt-16 border-t border-ink/20 md:mt-24">
+        <div className="mt-16 flex items-center gap-4 md:mt-20">
+          <span className="relative shrink-0">
+            <img src={profile.photoAvatar} alt={profile.photoAlt} width="56" height="56" loading="lazy" decoding="async" className="h-14 w-14 rounded-full border border-ink/15 object-cover" />
+            <span className="live-dot absolute bottom-0 right-0" aria-hidden="true" />
+          </span>
+          <p className="leading-snug">
+            <b className="font-bold text-ink">{profile.name}</b>
+            <br />
+            <span className="text-[15px]">{profile.replyTime}</span>
+          </p>
+        </div>
+
+        <ul className="mt-8 border-t border-ink/20 md:mt-10">
           {rows.map((row) => (
             <ContactRow key={row.label} {...row} />
           ))}

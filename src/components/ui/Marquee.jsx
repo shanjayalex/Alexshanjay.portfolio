@@ -3,9 +3,13 @@ import { useGsap } from "../../hooks/useGsap";
 import { gsap, ScrollTrigger, MOTION } from "../../lib/gsap";
 
 // Endless row of labels between hairlines. Speeds up (and flips direction) with scroll velocity.
-export default function Marquee({ items, className = "" }) {
+// `renderItem` and `separator` let other bands (credits) reuse the motion with their own type.
+const dot = <span className="h-1.5 w-1.5 rounded-full bg-orange" />;
+
+export default function Marquee({ items, className = "", label = "Tools", itemClassName = "mono-label text-[13px] text-ink md:text-[15px]", renderItem = (item) => item, separator = dot, repeat = 1 }) {
   const ref = useRef(null);
-  const row = [...items, ...items];
+  // Two identical halves for the -50% loop; `repeat` lengthens each half for short lists.
+  const row = Array.from({ length: repeat * 2 }, () => items).flat();
 
   useGsap(ref, (mm, el) => {
     mm.add(MOTION, () => {
@@ -30,15 +34,15 @@ export default function Marquee({ items, className = "" }) {
 
   return (
     <div ref={ref} className={`overflow-hidden border-y border-ink/20 py-4 md:py-5 ${className}`}>
-      <ul data-track className="flex w-max items-center" aria-label="Tools">
+      <ul data-track className="flex w-max items-center" aria-label={label}>
         {row.map((item, i) => (
           <li
             key={i}
             aria-hidden={i >= items.length || undefined}
-            className="mono-label flex shrink-0 items-center gap-8 px-4 text-[13px] text-ink md:text-[15px]"
+            className={`flex shrink-0 items-center gap-8 px-4 ${itemClassName}`}
           >
-            {item}
-            <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+            {renderItem(item)}
+            {separator}
           </li>
         ))}
       </ul>

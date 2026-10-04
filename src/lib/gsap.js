@@ -9,6 +9,9 @@ gsap.defaults({ ease: "expo.out", duration: 1.1 });
 export const MOTION = "(prefers-reduced-motion: no-preference)";
 export const DESKTOP_MOTION = "(min-width: 768px) and (prefers-reduced-motion: no-preference)";
 export const MOBILE_MOTION = "(max-width: 767px) and (prefers-reduced-motion: no-preference)";
+// Wide screens with a mouse — pointer-follow effects and the portrait flight.
+export const WIDE_MOTION = "(min-width: 1024px) and (prefers-reduced-motion: no-preference)";
+export const FINE_POINTER = "(hover: hover) and (pointer: fine)";
 
 export function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
