@@ -1,8 +1,10 @@
-import { useRef } from "react";
-import { FiArrowUpRight, FiInstagram } from "react-icons/fi";
+import { useRef, useState } from "react";
+import { FiArrowUpRight, FiInstagram, FiRotateCw } from "react-icons/fi";
 import { profile, studio } from "../../data/content";
 import { useGsap } from "../../hooks/useGsap";
-import { gsap, MOTION } from "../../lib/gsap";
+import { gsap, FINE_POINTER, MOTION, prefersReducedMotion, WIDE_MOTION } from "../../lib/gsap";
+import { BASE, EASE } from "../../lib/motion";
+import EditTransition from "../fx/EditTransition";
 import Logo, { LOGO_MARK } from "../ui/Logo";
 import MagneticButton from "../ui/MagneticButton";
 import MetaRow from "../ui/MetaRow";
@@ -26,32 +28,80 @@ function Stamp() {
   );
 }
 
-// AX.Visuals as a printed business card / letterhead lying on the page.
+// AX.Visuals as a real business card: it spins in from edge-on, tilts with a
+// glare under the mouse, and flips over (button or a click on the card) to
+// show the back — contact and services. An orange disc match-cuts onto the stamp.
 export default function Studio() {
   const ref = useRef(null);
+  const [flipped, setFlipped] = useState(false);
 
   useGsap(ref, (mm, el) => {
     mm.add(MOTION, () => {
       gsap.fromTo(
         "[data-letterhead]",
-        { y: 100, rotate: 2 },
-        { y: 0, rotate: -1.5, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top 25%", scrub: true } },
+        { y: 100, rotate: 2, rotationY: 80, transformPerspective: 1600 },
+        { y: 0, rotate: -1.5, rotationY: 0, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "top 25%", scrub: true } },
       );
       gsap.to("[data-stamp]", { rotate: 200, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true } });
     });
+
+    mm.add(`${WIDE_MOTION} and ${FINE_POINTER}`, () => {
+      const card = el.querySelector("[data-tilt]");
+      const rx = gsap.quickTo(card, "rotationX", { duration: 0.6, ease: "power3" });
+      const ry = gsap.quickTo(card, "rotationY", { duration: 0.6, ease: "power3" });
+      gsap.set(card, { transformPerspective: 1600 });
+      function onMove(e) {
+        const r = card.getBoundingClientRect();
+        const nx = (e.clientX - r.left) / r.width;
+        const ny = (e.clientY - r.top) / r.height;
+        rx((0.5 - ny) * 10);
+        ry((nx - 0.5) * 10);
+        card.style.setProperty("--gx", `${nx * 100}%`);
+        card.style.setProperty("--gy", `${ny * 100}%`);
+        card.style.setProperty("--glare", "1");
+      }
+      function onLeave() {
+        rx(0);
+        ry(0);
+        card.style.setProperty("--glare", "0");
+      }
+      card.addEventListener("pointermove", onMove);
+      card.addEventListener("pointerleave", onLeave);
+      return () => {
+        card.removeEventListener("pointermove", onMove);
+        card.removeEventListener("pointerleave", onLeave);
+      };
+    });
   });
 
+  function flip(next = !flipped) {
+    setFlipped(next);
+    gsap.to(ref.current.querySelector("[data-flip]"), {
+      rotationY: next ? 180 : 0,
+      duration: prefersReducedMotion() ? 0 : BASE,
+      ease: EASE.keyframe,
+    });
+  }
+
+  // A click on the card itself (not a link or button) flips it.
+  function onCardClick(e) {
+    if (e.target.closest("a, button")) return;
+    flip();
+  }
+
   return (
-    <section ref={ref} id="studio" className="relative px-[var(--gutter)] py-24 md:py-32">
+    <section ref={ref} id="studio" className="relative overflow-clip px-[var(--gutter)] py-24 md:py-32">
+      <EditTransition type="matchcut" />
       <div className="mx-auto max-w-[1400px]">
         <MetaRow left="The Studio" right={`Est. ${studio.founded}`} />
 
-        <article
-          data-letterhead
-          className="relative mt-14 -rotate-[1.5deg] rounded-[6px] bg-paper-2 p-6 shadow-[0_2px_0_rgb(255_255_255/0.9)_inset,0_50px_90px_-40px_rgb(0_0_0/0.55),0_10px_20px_-10px_rgb(0_0_0/0.25)] sm:p-10 md:mt-20 md:p-16"
-        >
+        <div data-letterhead className="relative mt-14 -rotate-[1.5deg] md:mt-20">
+        <div data-tilt className="relative" onClick={onCardClick}>
+        <div data-flip className="card-flip relative">
+        <article className="card-face relative rounded-[6px] bg-paper-2 p-6 shadow-[0_2px_0_rgb(255_255_255/0.9)_inset,0_50px_90px_-40px_rgb(0_0_0/0.55),0_10px_20px_-10px_rgb(0_0_0/0.25)] sm:p-10 md:p-16" aria-hidden={flipped || undefined} inert={flipped || undefined}>
           <a
             data-stamp
+            data-match
             href={studio.url}
             target="_blank"
             rel="noreferrer"
@@ -108,10 +158,59 @@ export default function Studio() {
                     <FiInstagram /> Follow on Instagram <FiArrowUpRight />
                   </MagneticButton>
                 )}
+                <button type="button" onClick={() => flip(true)} className="pill pill-outline">
+                  <FiRotateCw /> Flip card
+                </button>
               </div>
             </div>
           </div>
         </article>
+
+        {/* Back of the card */}
+        <article
+          className="card-face card-back absolute inset-0 flex flex-col justify-between gap-8 overflow-hidden rounded-[6px] bg-ink p-6 text-paper-2 shadow-[0_50px_90px_-40px_rgb(0_0_0/0.55)] sm:p-10 md:p-16"
+          aria-hidden={!flipped || undefined}
+          inert={!flipped || undefined}
+        >
+          <div className="flex items-start justify-between gap-6">
+            <Logo className="h-16 w-auto text-paper-2 md:h-24" />
+            <p className="mono-label text-right !text-paper-2/70">
+              <b className="font-bold !text-paper-2">Card No.</b> 001 · Back
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            <ul className="space-y-2">
+              {studio.services.map((service) => (
+                <li key={service} className="card-title text-[clamp(1.4rem,2.6vw,2.4rem)] !text-paper-2">
+                  {service}
+                </li>
+              ))}
+            </ul>
+            <div className="space-y-3 md:text-right">
+              <a href={profile.whatsapp} target="_blank" rel="noreferrer" className="block font-mono text-lg text-orange hover:underline">
+                WhatsApp {profile.phone}
+              </a>
+              <a href={`mailto:${profile.email}`} className="block font-mono text-lg hover:underline">
+                {profile.email}
+              </a>
+              <p className="mono-label !text-paper-2/70">
+                {studio.location} · {studio.pricing}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a href={studio.url} target="_blank" rel="noreferrer" className="pill pill-orange">
+              Book {studio.name} <FiArrowUpRight />
+            </a>
+            <button type="button" onClick={() => flip(false)} className="pill pill-outline">
+              <FiRotateCw /> Flip back
+            </button>
+          </div>
+        </article>
+        </div>
+        <span className="card-glare" aria-hidden="true" />
+        </div>
+        </div>
       </div>
     </section>
   );

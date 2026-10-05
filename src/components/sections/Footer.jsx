@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiArrowUp } from "react-icons/fi";
 import { navLinks, profile, studio } from "../../data/content";
+import { useGsap } from "../../hooks/useGsap";
+import { gsap, MOTION } from "../../lib/gsap";
 import EndCredits from "../ui/EndCredits";
 import Logo from "../ui/Logo";
 import TornEdge from "../ui/TornEdge";
@@ -18,9 +20,21 @@ function useClock(timeZone) {
 
 export default function Footer() {
   const time = useClock(profile.timezone);
+  const ref = useRef(null);
+
+  // The wordmark fills left → right like a render/progress bar as the page ends.
+  useGsap(ref, (mm, el) => {
+    mm.add(MOTION, () => {
+      gsap.fromTo(
+        "[data-wordmark-fill]",
+        { clipPath: "inset(0% 100% 0% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: el.querySelector("[data-wordmark]"), start: "top bottom", end: "bottom bottom", scrub: true } },
+      );
+    });
+  });
 
   return (
-    <footer className="on-ink relative overflow-hidden bg-ink px-[var(--gutter)] pt-16 text-paper-2 md:pt-24">
+    <footer ref={ref} className="on-ink relative overflow-hidden bg-ink px-[var(--gutter)] pt-16 text-paper-2 md:pt-24">
       <TornEdge color="var(--ink)" side="top" seed={13} />
 
       <div className="mx-auto grid max-w-[1600px] gap-10 md:grid-cols-3">
@@ -49,17 +63,22 @@ export default function Footer() {
             Back to top <FiArrowUp />
           </a>
           <p className="mono-label">© 2026 {profile.name}</p>
+          <p className="mono-label hidden lg:block" aria-hidden="true">
+            ⌨ <b className="font-bold">J K L</b> to shuttle the page
+          </p>
         </div>
       </div>
 
       <EndCredits />
 
-      <p
-        className="display pointer-events-none mt-0 select-none whitespace-nowrap text-center text-paper-2 [font-size:clamp(3rem,12vw,20rem)] [margin-bottom:-0.17em] md:mt-20"
-        aria-hidden="true"
-      >
-        {studio.name}
-      </p>
+      <div data-wordmark className="relative mt-0 select-none md:mt-20" aria-hidden="true">
+        <p className="display pointer-events-none whitespace-nowrap text-center [-webkit-text-stroke:1px_rgb(245_244_241/0.35)] ![color:transparent] [font-size:clamp(3rem,12vw,20rem)] [margin-bottom:-0.17em]">
+          {studio.name}
+        </p>
+        <p data-wordmark-fill className="display pointer-events-none absolute inset-0 whitespace-nowrap text-center text-paper-2 [font-size:clamp(3rem,12vw,20rem)]">
+          {studio.name}
+        </p>
+      </div>
     </footer>
   );
 }

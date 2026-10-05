@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { rates, sections, services, studio } from "../../data/content";
 import { useStaggerIn } from "../../hooks/useStaggerIn";
+import GraphEditor from "../fx/GraphEditor";
+import RollDigits from "../fx/RollDigits";
 import SectionHeader from "../ui/SectionHeader";
 import Tray from "../ui/Tray";
 
@@ -14,11 +16,13 @@ export default function Services() {
       <div className="mx-auto max-w-[1600px]">
         <SectionHeader {...sections.services} id="services-h" />
 
-        <Tray className="mt-10 md:mt-14">
-          <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-6">
+        <Tray className="relative mt-10 md:mt-14">
+          <GraphEditor />
+          <ul className="relative grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-6">
             {services.map((service, i) => (
-              <li key={service.title} data-card className="paper-card flex min-h-[220px] flex-col justify-between p-6 md:p-8">
-                <span className="mono-label">
+              <li key={service.title} data-card className="paper-card group relative flex min-h-[220px] flex-col justify-between p-6 md:p-8">
+                <span data-key className="keyframe" aria-hidden="true" />
+                <span className="mono-label pl-6">
                   Service # <b className="font-bold text-ink">{String(i + 1).padStart(2, "0")}</b>
                 </span>
                 <div>
@@ -34,10 +38,10 @@ export default function Services() {
               </span>
               <div>
                 <p className="card-title text-[clamp(1.4rem,2.2vw,2rem)]">
-                  Reel editing from <span className="whitespace-nowrap">{rates.reelFrom}.</span>
+                  Reel editing from <RollDigits value={rates.reelFrom} className="whitespace-nowrap" />.
                 </p>
                 <p className="mt-2 font-semibold">
-                  Shoot + edit content packages from {rates.packagesFrom} ({rates.packagesNote}).
+                  Shoot + edit content packages from <RollDigits value={rates.packagesFrom} /> ({rates.packagesNote}).
                 </p>
                 <a
                   href={studio.url}

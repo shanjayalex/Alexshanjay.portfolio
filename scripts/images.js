@@ -16,15 +16,8 @@ const jobs = [
   ["portrait-2026.webp", sharp(src("portrait-2026.png")).resize({ width: 1100 }).webp({ quality: 82 })],
   ["portrait-2026-640.webp", sharp(src("portrait-2026.png")).resize({ width: 640 }).webp({ quality: 80 })],
   ["portrait-cutout.webp", sharp(src("portrait-cutout.png")).trim().resize({ width: 1100 }).webp({ quality: 82, alphaQuality: 90 })],
-  [
-    "portrait-cutout-mono.webp",
-    sharp(src("portrait-cutout.png")).trim().resize({ width: 1100 }).greyscale().linear(1.18, -18).webp({ quality: 82, alphaQuality: 90 }),
-  ],
-  // Phones show the hero portrait at 70vw.
-  [
-    "portrait-cutout-mono-640.webp",
-    sharp(src("portrait-cutout.png")).trim().resize({ width: 640 }).greyscale().linear(1.18, -18).webp({ quality: 78, alphaQuality: 85 }),
-  ],
+  // Phones show the hero portrait at 70vw. (The hero's LOG look is a CSS filter on this same file.)
+  ["portrait-cutout-640.webp", sharp(src("portrait-cutout.png")).trim().resize({ width: 640 }).webp({ quality: 78, alphaQuality: 85 })],
   // 56px contact avatar (2× + a little headroom): head crop of the cut-out on paper.
   [
     "portrait-avatar.webp",
@@ -37,5 +30,5 @@ for (const [name, pipeline] of jobs) {
   console.log(`images: ${name} ${info.width}×${info.height} ${(info.size / 1024).toFixed(0)} kB`);
 }
 
-// The old portrait is replaced by the files above.
-await rm(out("photo.png"), { force: true });
+// Files from earlier versions that nothing uses any more.
+for (const old of ["photo.png", "portrait-cutout-mono.webp", "portrait-cutout-mono-640.webp"]) await rm(out(old), { force: true });

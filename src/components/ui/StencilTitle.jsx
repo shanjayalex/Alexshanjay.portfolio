@@ -2,11 +2,13 @@ import { useRef } from "react";
 import { useGsap } from "../../hooks/useGsap";
 import { gsap, MOTION } from "../../lib/gsap";
 
-function Ring() {
+// `outline`: wireframe version (a 1.5px ring outline instead of the solid ring).
+function Ring({ outline }) {
   return (
     <span className="char char-ring">
       <svg viewBox="0 0 100 86" aria-hidden="true">
-        <ellipse cx="50" cy="43" rx="38" ry="31.5" fill="none" stroke="currentColor" strokeWidth="23" />
+        <ellipse cx="50" cy="43" rx="38" ry="31.5" fill="none" stroke={outline ? "var(--ink)" : "currentColor"} strokeWidth="23" />
+        {outline && <ellipse cx="50" cy="43" rx="38" ry="31.5" fill="none" stroke="var(--paper)" strokeWidth="20" />}
       </svg>
     </span>
   );
@@ -14,7 +16,7 @@ function Ring() {
 
 // Giant uppercase display word with stencil cuts. Chars rise from a mask on
 // scroll; pass `reveal={false}` when a parent timeline animates `.char`.
-export default function StencilTitle({ text, as: Tag = "h2", ring = false, reveal = true, className = "", style, id, label }) {
+export default function StencilTitle({ text, as: Tag = "h2", ring = false, outline = false, reveal = true, className = "", style, id, label }) {
   const ref = useRef(null);
   const lines = text.toUpperCase().split("\n");
   // The ring replaces the last "O" (echoes the "lO" in the reference poster).
@@ -43,7 +45,7 @@ export default function StencilTitle({ text, as: Tag = "h2", ring = false, revea
             const useRing = li === ringLine && ci === ringChar;
             return (
               <span key={ci} className="char-mask">
-                {useRing ? <Ring /> : <span className="char">{ch}</span>}
+                {useRing ? <Ring outline={outline} /> : <span className="char">{ch}</span>}
               </span>
             );
           })}

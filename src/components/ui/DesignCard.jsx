@@ -1,11 +1,19 @@
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 import { useTilt } from "../../hooks/useTilt";
+import HalftoneReveal from "../fx/HalftoneReveal";
 import PosterPlaceholder from "./PosterPlaceholder";
 
 // Square poster card with a gentle tilt. The whole card opens the lightbox;
-// the Instagram link sits above the stretched button.
-export default function DesignCard({ design, index, onOpen, tilt = true }) {
+// the Instagram link sits above the stretched button. `press`: print the art
+// in with a CMYK halftone run. Hover drops a push-pin in.
+export default function DesignCard({ design, index, onOpen, tilt = true, press = false }) {
+  const art = design.image ? (
+    <img src={design.image} alt={design.title} width="1080" height="1080" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+  ) : (
+    <PosterPlaceholder item={design} index={index} />
+  );
+
   const { ref, rotateX, rotateY, onMouseMove, onMouseLeave } = useTilt(6);
 
   return (
@@ -17,12 +25,9 @@ export default function DesignCard({ design, index, onOpen, tilt = true }) {
       style={tilt ? { rotateX, rotateY, transformPerspective: 900 } : undefined}
       className="paper-card is-interactive no-lift group p-2.5 md:p-3"
     >
+      <span className="push-pin" aria-hidden="true" />
       <span className="thumb-zoom relative block aspect-square overflow-hidden rounded-[14px] bg-paper">
-        {design.image ? (
-          <img src={design.image} alt={design.title} width="1080" height="1080" loading="lazy" decoding="async" className="h-full w-full object-cover" />
-        ) : (
-          <PosterPlaceholder item={design} index={index} />
-        )}
+        {press ? <HalftoneReveal>{art}</HalftoneReveal> : art}
       </span>
       <span className="flex flex-wrap items-end justify-between gap-x-2 gap-y-1 px-1 pb-0.5 pt-3">
         <span className="min-w-0">

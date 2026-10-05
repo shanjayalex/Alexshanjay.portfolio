@@ -1,20 +1,19 @@
 import { useMemo, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { designFilters, designs, sections } from "../../data/content";
-import { useStaggerIn } from "../../hooks/useStaggerIn";
 import { ScrollTrigger } from "../../lib/gsap";
 import { useLightbox } from "../../lib/lightbox";
+import EditTransition from "../fx/EditTransition";
 import DesignCard from "../ui/DesignCard";
 import SectionHeader from "../ui/SectionHeader";
 
 const PER_TRAY = 3;
-const ease = [0.16, 1, 0.3, 1];
+const ease = [0.16, 1, 0.3, 1]; // "keyframe"
 
 export default function Design() {
   const ref = useRef(null);
   const [filter, setFilter] = useState("All");
   const { open } = useLightbox();
-  useStaggerIn(ref);
 
   const visible = useMemo(() => (filter === "All" ? designs : designs.filter((d) => d.category === filter)), [filter]);
   const trays = useMemo(() => {
@@ -25,8 +24,10 @@ export default function Design() {
 
   return (
     <section ref={ref} id="design" className="relative px-[var(--gutter)] py-24 md:py-32">
+      <EditTransition type="halftone" />
       <div className="mx-auto max-w-[1600px]">
         <SectionHeader {...sections.design} />
+        <div data-cut>
 
         <LayoutGroup>
           <div className="mt-10 flex flex-wrap gap-2 md:mt-14" role="group" aria-label="Filter designs">
@@ -39,11 +40,11 @@ export default function Design() {
                   onClick={() => setFilter(name)}
                   aria-pressed={active}
                   className={`relative rounded-full border px-4 py-2 font-mono text-[11px] font-medium uppercase tracking-[0.16em] transition-colors md:text-xs ${
-                    active ? "border-ink text-paper-2" : "border-ink/20 text-ink hover:border-ink"
+                    active ? "border-orange-deep text-ink" : "border-ink/20 text-ink hover:border-ink"
                   }`}
                 >
                   {active && (
-                    <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-ink" transition={{ duration: 0.5, ease }} />
+                    <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-orange" transition={{ duration: 0.5, ease }} />
                   )}
                   <span className="relative">{name}</span>
                 </button>
@@ -72,13 +73,14 @@ export default function Design() {
                             key={design.id}
                             layoutId={design.id}
                             initial={{ opacity: 0, scale: 0.94 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.94 }}
+                            animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                            exit={{ opacity: 0, y: 80, rotate: 6, transition: { duration: 0.45, ease: [0.7, 0, 0.84, 0] } }}
                             transition={{ duration: 0.5, ease }}
                           >
                             <DesignCard
                               design={design}
                               index={index}
+                              press
                               onOpen={() => open({ kind: "image", items: visible, index: visible.indexOf(design) })}
                             />
                           </motion.div>
@@ -91,6 +93,7 @@ export default function Design() {
             </AnimatePresence>
           </motion.div>
         </LayoutGroup>
+        </div>
 
         <p className="serif-italic mt-8 text-center text-xl text-ink-2">Social posts, restaurant promos, brand systems &amp; posters.</p>
       </div>

@@ -2,8 +2,12 @@ import { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import { designs, profile, sections, studio, videos } from "../../data/content";
 import { useGsap } from "../../hooks/useGsap";
-import { gsap, DESKTOP_MOTION, MOTION, SCRIPT_HIDDEN, SCRIPT_SHOWN } from "../../lib/gsap";
+import { gsap, ScrollTrigger, DESKTOP_MOTION, FINE_POINTER, MOTION, SCRIPT_HIDDEN, SCRIPT_SHOWN, WIDE_MOTION } from "../../lib/gsap";
+import { flashFrame } from "../../lib/fx";
 import { onIntroDone } from "../../lib/intro";
+import { BASE, EASE, f, FPS, frames, HERO, SLOW, timecode } from "../../lib/motion";
+import { makeBuckets } from "../fx/buckets";
+import RenderTitle from "../fx/RenderTitle";
 import { useLightbox } from "../../lib/lightbox";
 import { fitLength } from "../../lib/type";
 import DepthPortrait from "../ui/DepthPortrait";
@@ -24,35 +28,133 @@ export default function Hero() {
 
   useGsap(ref, (mm, el) => {
     mm.add(MOTION, () => {
+      const q = (sel) => el.querySelector(sel);
       const chars = el.querySelectorAll("[data-title] .char");
-      const cards = el.querySelectorAll("[data-card]");
+      const bins = el.querySelectorAll("[data-tray-top] [data-card]");
+      const prints = el.querySelectorAll("[data-tray-bottom] [data-card]");
+      const status = q("[data-render-status]");
+      const render = { p: 0 };
+      const buckets = makeBuckets(q("[data-buckets]"));
+
+      // Render pass layers are display:none in the HTML; switch them on.
+      gsap.set(["[data-buckets]"], { display: "grid" });
+      gsap.set(["[data-outline]", "[data-log]", "[data-wipe]"], { display: "block" });
+      gsap.set("[data-wipe]", { autoAlpha: 0 });
+      gsap.set("[data-front-word]", { autoAlpha: 0 });
       gsap.set(chars, { yPercent: 110 });
       gsap.set("[data-portrait]", { yPercent: 40, clipPath: "inset(100% 0% 0% 0%)" });
       gsap.set("[data-script]", { clipPath: SCRIPT_HIDDEN });
-      gsap.set(cards, { y: 90, rotate: (i) => (i % 2 ? 4 : -4), autoAlpha: 0 });
+      // "Bin": clips thrown in loosely, waiting to be cut into the timeline.
+      gsap.set(bins, {
+        x: () => gsap.utils.random(-120, 120),
+        y: () => gsap.utils.random(-60, 120),
+        rotation: () => gsap.utils.random(-8, 8),
+        scale: 0.9,
+        autoAlpha: 0,
+      });
+      gsap.set(prints, { y: 90, rotate: (i) => (i % 2 ? 4 : -4), autoAlpha: 0 });
       gsap.set("[data-fade]", { autoAlpha: 0, y: 20 });
 
       const intro = gsap
         .timeline({ paused: true })
-        .to(chars, { yPercent: 0, stagger: 0.04, duration: 1.2, ease: "expo.out" })
-        // The portrait rises from behind the baseline, then "refine" writes on over his shoulder.
-        .to("[data-portrait]", { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "expo.out" }, 0.45)
-        .to("[data-script]", { clipPath: SCRIPT_SHOWN, duration: 1.3, ease: "power2.inOut" }, 1.05)
-        .to(cards, { y: 0, rotate: 0, autoAlpha: 1, stagger: 0.07, duration: 1.2, ease: "expo.out" }, 0.15)
-        .to("[data-fade]", { autoAlpha: 1, y: 0, stagger: 0.08, duration: 0.9, ease: "power3.out" }, 0.6);
+        // 1 · Wireframe: outlines rise in.
+        .to(chars, { yPercent: 0, stagger: frames(1), duration: f(28), ease: EASE.keyframe })
+        .to(bins, { autoAlpha: 1, duration: f(6), ease: EASE.dissolve, stagger: frames(2) }, f(2))
+        // 2 · Render buckets flip from the centre out, on twos.
+        .to(render, {
+          p: 100,
+          duration: HERO * 0.6,
+          ease: "none",
+          onUpdate: () => status && (status.textContent = `Rendering… ${Math.round(render.p)}%`),
+        }, f(16))
+        .to(buckets, {
+          autoAlpha: 0,
+          duration: 0.001,
+          stagger: { amount: HERO * 0.55, grid: [8, 24], from: "center", ease: "steps(15)" },
+        }, f(18))
+        .add(() => {
+          if (status) status.textContent = `Render complete ${timecode(2 * FPS)}`;
+          flashFrame(2);
+        })
+        // Hard cut: wireframe off, the front copy is "there".
+        .set("[data-outline]", { autoAlpha: 0 })
+        .set("[data-front-word]", { autoAlpha: 1 })
+        // 3 · Bin → timeline: each clip snaps into its slot with a 2px landing shake.
+        .to(bins, { x: 0, y: 0, rotation: 0, scale: 1, duration: BASE, ease: EASE.whip, stagger: frames(4) }, "<")
+        .to(bins, { keyframes: { x: [0, -2, 2, 0] }, duration: f(3), ease: "none", stagger: frames(4) }, `<${BASE}`)
+        // The portrait rises from behind the baseline…
+        .to("[data-portrait]", { yPercent: 0, clipPath: "inset(0% 0% 0% 0%)", duration: f(34), ease: "expo.out" }, f(10))
+        // …then grades: LOG → colour with a wipe line.
+        .set("[data-wipe]", { autoAlpha: 1, left: "0%" }, f(40))
+        .fromTo("[data-log]", { clipPath: "inset(0% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 100%)", duration: SLOW, ease: EASE.dissolve }, f(40))
+        .to("[data-wipe]", { left: "100%", duration: SLOW, ease: EASE.dissolve }, f(40))
+        .to("[data-wipe]", { autoAlpha: 0, duration: f(4) })
+        .to("[data-script]", { clipPath: SCRIPT_SHOWN, duration: SLOW, ease: "power2.inOut" }, f(56))
+        .to(prints, { y: 0, rotate: 0, autoAlpha: 1, stagger: frames(2), duration: f(28), ease: EASE.keyframe }, f(48))
+        .to("[data-fade]", { autoAlpha: 1, y: 0, stagger: frames(2), duration: f(20), ease: "power3.out" }, f(56));
 
-      return onIntroDone(() => intro.play());
+      // Running timecodes on the episode cards, only while the tray is on screen.
+      const strips = [...el.querySelectorAll("[data-tc]")];
+      const start = strips.map((_, i) => (i + 1) * 337);
+      let t0 = 0;
+      let last = 0;
+      const tick = (time) => {
+        if (time - last < 1 / 12) return;
+        last = time;
+        const fr = Math.round((time - t0) * FPS);
+        strips.forEach((node, i) => (node.textContent = timecode(start[i] + fr)));
+      };
+      const tcTrigger = ScrollTrigger.create({
+        trigger: q("[data-tray-top]"),
+        start: "top bottom",
+        end: "bottom top",
+        onToggle: (self) => (self.isActive ? gsap.ticker.add(tick) : gsap.ticker.remove(tick)),
+        onEnter: () => !t0 && (t0 = gsap.ticker.time),
+      });
+
+      const off = onIntroDone(() => intro.play());
+      return () => {
+        off();
+        gsap.ticker.remove(tick);
+        tcTrigger.kill();
+      };
     });
 
     mm.add(DESKTOP_MOTION, () => {
-      const scrub = { trigger: el, start: "top top", end: "bottom top", scrub: true };
-      gsap.to("[data-tray-top]", { yPercent: -18, ease: "none", scrollTrigger: scrub });
+      // 2.5D dolly back: three layers at different speeds (page = 1×), letters drift apart in Z.
+      const span = () => el.offsetHeight;
+      const scrub = { trigger: el, start: "top top", end: "bottom top", scrub: true, invalidateOnRefresh: true };
+      gsap.to("[data-tray-top]", { y: () => span() * -0.15, ease: "none", scrollTrigger: scrub }); // 1.15×
+      gsap.to(["[data-back-word]", "[data-front-word]"], { y: () => span() * 0.15, ease: "none", scrollTrigger: scrub }); // 0.85×
+      gsap.to("[data-ghost]", { y: () => span() * 0.4, ease: "none", scrollTrigger: scrub }); // 0.6×
       gsap.to("[data-tray-bottom]", { yPercent: 10, ease: "none", scrollTrigger: scrub });
-      gsap.to("[data-title]", { scale: 0.92, ease: "none", scrollTrigger: scrub });
-      // The word (and its masked front copy, which must stay in register) trails the page;
-      // the portrait in DepthPortrait trails less, so he drifts forward out of the type.
-      gsap.to(["[data-back-word]", "[data-front-word]"], { y: () => el.offsetHeight * 0.12, ease: "none", scrollTrigger: { ...scrub, invalidateOnRefresh: true } });
+      gsap.to("[data-title]", { scale: 0.94, ease: "none", scrollTrigger: scrub });
       gsap.to("[data-script-wrap]", { x: 40, y: -30, rotate: -3, ease: "none", scrollTrigger: scrub });
+      // The same drift on both copies keeps the front letters in register.
+      ["[data-back-word]", "[data-front-word]"].forEach((sel) => {
+        const letters = el.querySelectorAll(`${sel} .char`);
+        const mid = (letters.length - 1) / 2;
+        gsap.to(letters, {
+          x: (i) => (i - mid) * 7,
+          z: (i) => (i % 2 ? 60 : -40),
+          transformPerspective: 1200,
+          ease: "none",
+          scrollTrigger: scrub,
+        });
+      });
+    });
+
+    // Whole type stack leans away from the cursor (±10px) — the portrait follows it, so they separate.
+    mm.add(`${WIDE_MOTION} and ${FINE_POINTER}`, () => {
+      const stack = el.querySelector("[data-stack]");
+      const toX = gsap.quickTo(stack, "x", { duration: 1, ease: "power3" });
+      const toY = gsap.quickTo(stack, "y", { duration: 1, ease: "power3" });
+      const onMove = (e) => {
+        toX((0.5 - e.clientX / window.innerWidth) * 20);
+        toY((0.5 - e.clientY / window.innerHeight) * 20);
+      };
+      window.addEventListener("pointermove", onMove, { passive: true });
+      return () => window.removeEventListener("pointermove", onMove);
     });
   });
 
@@ -68,6 +170,7 @@ export default function Hero() {
               video={video}
               number={i + 1}
               variant="compact"
+              timecode
               onOpen={() => open({ kind: "video", items: videos, index: i })}
             />
           ))}
@@ -79,10 +182,12 @@ export default function Hero() {
         className="type-stack pointer-events-none relative z-10 mx-auto -mb-[0.1em] mt-[calc(66vw+2.5rem)] max-w-[1600px] text-center md:mt-[max(0.9em,3.5rem)]"
         style={{ "--len": fitLength(copy.title) }}
       >
+        <div data-stack>
         <div data-title className="relative origin-center">
-          <span className="ghost-script absolute bottom-[78%] left-1/2 -translate-x-1/2 text-[0.42em]" aria-hidden="true" data-text={copy.ghost} />
+          <span data-ghost className="ghost-script absolute bottom-[78%] left-1/2 -translate-x-1/2 text-[0.42em]" aria-hidden="true" data-text={copy.ghost} />
           <div data-back-word className="relative">
             <StencilTitle as="h1" text={copy.title} ring reveal={false} label={`${profile.name} — Video & Design Portfolio`} />
+            <RenderTitle title={copy.title} />
           </div>
           <DepthPortrait title={copy.title} />
           <span data-script-wrap className="absolute bottom-[34%] left-[1%] z-20 inline-block md:bottom-[26%] md:left-[calc(50%+0.48em)]">
@@ -91,6 +196,10 @@ export default function Hero() {
           <span data-fade className="mono-label absolute bottom-[calc(100%+0.9rem)] right-[2%] hidden text-ink md:inline">
             <b className="font-bold">{copy.tag}</b>
           </span>
+          <span data-render-status className="mono-label absolute bottom-[calc(100%+0.9rem)] left-[2%] hidden text-ink md:inline" aria-hidden="true">
+            {copy.meta[1]}
+          </span>
+        </div>
         </div>
       </div>
 

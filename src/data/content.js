@@ -40,8 +40,7 @@ export const profile = {
   photo: "/images/portrait-2026.webp",
   photoSmall: "/images/portrait-2026-640.webp",
   photoCutout: "/images/portrait-cutout.webp",
-  photoCutoutMono: "/images/portrait-cutout-mono.webp",
-  photoCutoutMonoSmall: "/images/portrait-cutout-mono-640.webp",
+  photoCutoutSmall: "/images/portrait-cutout-640.webp",
   photoAvatar: "/images/portrait-avatar.webp",
   photoAlt: "Alex Shanjay, video editor and graphic designer, in a navy blazer and white shirt",
   bio: "Video editor and graphic designer creating reels, brand films and promotional content for clients in the UK and Sri Lanka. I combine visual storytelling with motion graphics, colour grading and visual effects — from the first brief to the final asset.",
@@ -209,6 +208,20 @@ export const tools = [
   { group: "3D & VFX", items: ["Blender", "Cinema 4D", "Mocha Pro"] },
   { group: "AI workflows", items: ["AI content tools"] }, // [EDIT] name the tools you use (e.g. Higgsfield, Runway, Kling)
 ];
+
+// Monogram tiles for the toolkit dock in About.
+export const toolAbbr = {
+  "Premiere Pro": "Pr",
+  "After Effects": "Ae",
+  "DaVinci Resolve": "Dr",
+  Photoshop: "Ps",
+  Illustrator: "Ai",
+  Figma: "Fg",
+  Blender: "Bl",
+  "Cinema 4D": "C4",
+  "Mocha Pro": "Mo",
+  "AI content tools": "AI",
+};
 
 // Credits band under the hero. `profile.now.org` gets the NOW pill.
 export const clients = ["The Coconut Island UK", "Chroma Global", "Venom X Technology", "AX.Visuals"];
