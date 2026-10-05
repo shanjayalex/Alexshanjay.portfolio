@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FiArrowUp } from "react-icons/fi";
-import { navLinks, profile, studio } from "../../data/content";
+import { navLinks, profile, seoPages, studio } from "../../data/content";
 import EndCredits from "../ui/EndCredits";
 import Logo from "../ui/Logo";
 import TornEdge from "../ui/TornEdge";
@@ -16,7 +16,8 @@ function useClock(timeZone) {
   return new Intl.DateTimeFormat("en-GB", { timeZone, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(now);
 }
 
-export default function Footer() {
+// `base`: "/" on the landing pages, so section links point back to the home page.
+export default function Footer({ base = "" }) {
   const time = useClock(profile.timezone);
 
   return (
@@ -33,17 +34,31 @@ export default function Footer() {
             {time} <span className="text-base text-paper-2/60">GMT+5:30</span>
           </p>
         </div>
-        <nav aria-label="Footer">
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className="inline-block py-1 text-paper-2/80 transition-colors hover:text-orange">
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="grid gap-8 sm:grid-cols-2">
+          <nav aria-label="Footer">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={`${base}${link.href}`} className="inline-block py-1 text-paper-2/80 transition-colors hover:text-orange">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-label="Services">
+            <p className="mono-label mb-2">Services</p>
+            <ul className="space-y-1">
+              {seoPages.map((page) => (
+                <li key={page.slug}>
+                  <a href={`/${page.slug}/`} className="inline-block py-1 text-paper-2/80 transition-colors hover:text-orange">
+                    {page.nav}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
         <div className="flex flex-col items-start gap-4 md:items-end">
           <a href="#top" className="pill pill-outline pill-sm">
             Back to top <FiArrowUp />

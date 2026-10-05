@@ -7,9 +7,10 @@
 
 export const site = {
   url: "https://www.alexshanjay.live/",
-  title: "Alex Shanjay — Video Editor & Graphic Designer | AX.Visuals, Sri Lanka",
+  // Home page <title> and meta description — written for "video editor in Sri Lanka" searches.
+  title: "Video Editor in Sri Lanka — Alex Shanjay | Editing & Video Shoots",
   description:
-    "Alex Shanjay is a Sri Lankan video editor and graphic designer — Video Editor at The Coconut Island UK and founder of AX.Visuals. Reels, brand films, motion graphics, colour grading and social design.",
+    "Hire Alex Shanjay, a video editor in Sri Lanka (Colombo & Jaffna): Reels & Shorts editing, YouTube videos, brand films, ads, colour grading and video shoots by AX.Visuals. Remote editing worldwide.",
   ogImage: "/og.jpg",
   updated: "2026",
   lastmod: "2026-10-05", // sitemap date — bump when content changes
@@ -20,13 +21,15 @@ export const site = {
     "Alex Shanjay is a video editor and graphic designer based in Colombo, Sri Lanka. He is a Video Editor at The Coconut Island UK and the founder of AX.Visuals, a content studio in Jaffna.",
   summaryMore:
     "He creates reels, brand films, cinematic edits, Instagram Reels and YouTube Shorts, motion graphics, colour grading and social-media design for restaurants, hotels, salons, retail brands, product businesses and creators — islandwide in Sri Lanka and remotely worldwide.",
-  knowsAbout: ["Video editing", "Instagram Reels", "YouTube Shorts", "Motion graphics", "Colour grading", "Graphic design", "Social media content"],
+  knowsAbout: ["Video editing", "Video production", "Videography", "Instagram Reels", "YouTube Shorts", "YouTube video editing", "Brand films", "Promotional videos", "Motion graphics", "Colour grading", "Graphic design", "Social media content"],
 };
 
 export const profile = {
   name: "Alex Shanjay",
   fullName: "Alexmathanraj Shanjay",
   title: "Video Editor & Graphic Designer",
+  // The home page's <h1> — the phrase people search for.
+  headline: "Alex Shanjay — Video Editor in Sri Lanka",
   role: "Video Editor at The Coconut Island UK · Founder, AX.Visuals",
   location: "Colombo, Sri Lanka", // [EDIT] CV says Colombo; switch to "Jaffna, Sri Lanka" if you prefer
   // Current position — shown in the nav chip and the credits band.
@@ -85,27 +88,31 @@ export const sections = {
 export const showreel = {
   id: "VfRRBIF4I6g", // [EDIT] swap for a new reel if you cut one
   title: "Showreel 2026",
+  uploaded: "2026-03-25T17:20:31-07:00",
+  seconds: 26,
 };
 
 // Titles below come from the YouTube upload names — [EDIT] polish if you like.
+// `uploaded` / `seconds` come from YouTube and feed the VideoObject schema
+// (Google needs an upload date for video results). Add them for new videos too.
 export const videos = [
-  { id: "oLNeoaWaiGk", title: "Cinematic Reel", category: "Cinematic", year: 2026, featured: true },
-  { id: "mU3a-WvqPUw", title: "Nallur — Cinematic Reel", category: "Colour Grading", year: 2026 },
-  { id: "WOBtJHS2HF4", title: "Cinematic Fight", category: "Action & VFX", year: 2026 },
-  { id: "_zKvcEZlW2I", title: "Love Reel", category: "Storytelling", year: 2026 },
-  { id: "O1MLFrXW_3Y", title: "Nallur — Festival Cut", category: "Cinematic", year: 2026 },
-  { id: "VnaE8Qpd1GI", title: "Birthday Reel — Vol. 01", category: "Event Edit", year: 2026 },
-  { id: "-jZy4vw_PzM", title: "Birthday Reel — Vol. 02", category: "Event Edit", year: 2026 },
-  { id: "QYIsp8kohJc", title: "Birthday Reel — Vol. 03", category: "Event Edit", year: 2026 },
+  { id: "oLNeoaWaiGk", title: "Cinematic Reel", category: "Cinematic", year: 2026, featured: true, uploaded: "2026-09-25T14:20:08-07:00", seconds: 8 },
+  { id: "mU3a-WvqPUw", title: "Nallur — Cinematic Reel", category: "Colour Grading", year: 2026, uploaded: "2026-09-25T14:23:52-07:00", seconds: 34 },
+  { id: "WOBtJHS2HF4", title: "Cinematic Fight", category: "Action & VFX", year: 2026, uploaded: "2026-10-01T22:52:05-07:00", seconds: 40 },
+  { id: "_zKvcEZlW2I", title: "Love Reel", category: "Storytelling", year: 2026, uploaded: "2026-09-25T14:25:01-07:00", seconds: 36 },
+  { id: "O1MLFrXW_3Y", title: "Nallur — Festival Cut", category: "Cinematic", year: 2026, uploaded: "2026-09-25T14:22:45-07:00", seconds: 42 },
+  { id: "VnaE8Qpd1GI", title: "Birthday Reel — Vol. 01", category: "Event Edit", year: 2026, uploaded: "2026-09-25T14:18:27-07:00", seconds: 34 },
+  { id: "-jZy4vw_PzM", title: "Birthday Reel — Vol. 02", category: "Event Edit", year: 2026, uploaded: "2026-09-25T14:20:36-07:00", seconds: 18 },
+  { id: "QYIsp8kohJc", title: "Birthday Reel — Vol. 03", category: "Event Edit", year: 2026, uploaded: "2026-09-25T14:21:27-07:00", seconds: 60 },
 ];
 
 export const shorts = [
-  { id: "k8ilFbrGgGQ", title: "Product Ad — 01", category: "Social Ad", year: 2026 },
-  { id: "vpLkwCO7nB8", title: "Product Ad — 02", category: "Social Ad", year: 2026 },
-  { id: "FE2bpUpP7DA", title: "Product Ad — 03", category: "Social Ad", year: 2026 },
-  { id: "wvOW2gVi9sk", title: "Product Ad — 04", category: "Social Ad", year: 2026 },
-  { id: "DbFmiYm_jmk", title: "Product Ad — 05", category: "Social Ad", year: 2026 },
-  { id: "vKySIb66TRs", title: "Restaurant Ad", category: "Restaurant", year: 2026 },
+  { id: "k8ilFbrGgGQ", title: "Product Ad — 01", category: "Social Ad", year: 2026, uploaded: "2026-08-30T11:09:19-07:00", seconds: 18 },
+  { id: "vpLkwCO7nB8", title: "Product Ad — 02", category: "Social Ad", year: 2026, uploaded: "2026-08-30T11:00:31-07:00", seconds: 31 },
+  { id: "FE2bpUpP7DA", title: "Product Ad — 03", category: "Social Ad", year: 2026, uploaded: "2026-08-30T10:54:43-07:00", seconds: 8 },
+  { id: "wvOW2gVi9sk", title: "Product Ad — 04", category: "Social Ad", year: 2026, uploaded: "2026-08-30T10:54:05-07:00", seconds: 13 },
+  { id: "DbFmiYm_jmk", title: "Product Ad — 05", category: "Social Ad", year: 2026, uploaded: "2026-08-30T10:50:03-07:00", seconds: 24 },
+  { id: "vKySIb66TRs", title: "Restaurant Ad", category: "Restaurant", year: 2026, uploaded: "2026-08-30T10:49:08-07:00", seconds: 19 },
 ];
 
 // Older work, shown behind "View older work".
@@ -342,4 +349,157 @@ export const slate = [
   ["Scene", "26"],
   ["Take", "01"],
   ["Roll", "AX"],
+];
+
+// ─────────────────────────────────────────────────────────────
+// SEO landing pages. Each is pre-rendered at /<slug>/ with its own
+// <title>, description, heading, content, FAQ and structured data, and
+// targets one kind of search. Keep every claim true — no fake reviews.
+// ─────────────────────────────────────────────────────────────
+
+// How a project runs — shown on every landing page.
+export const process = [
+  { title: "Brief", text: "Send the footage or the idea, your deadline and budget on WhatsApp or email. You get a clear quote and timeline." },
+  { title: "Advance", text: "A 50% advance confirms the booking and reserves the edit (or shoot) slot." },
+  { title: "First cut", text: "You receive a first cut with the hook, pacing, captions, music and colour in place." },
+  { title: "Revisions", text: "Two rounds of reasonable revisions per video are included." },
+  { title: "Delivery", text: "Final files in the right format for each platform — 9:16, 1:1, 16:9 — ready to post." },
+];
+
+export const seoPages = [
+  {
+    slug: "video-editor-sri-lanka",
+    // Visible <h1> (the giant stencil word is decorative).
+    headline: "Video editor in Sri Lanka — Colombo & Jaffna, editing for clients worldwide",
+    nav: "Video editor",
+    title: "Video Editor in Sri Lanka — Hire Alex Shanjay | Colombo & Jaffna",
+    description:
+      "Freelance video editor in Sri Lanka (Colombo & Jaffna) editing Reels, YouTube videos, brand films and ads for clients in Sri Lanka, the UK and worldwide. Reel edits from Rs. 4,000.",
+    kicker: ["Hire a", "Video editor"],
+    h1: "Video\nEditor",
+    script: "hire",
+    lead: "I'm Alex Shanjay — a video editor in Sri Lanka, working from Colombo and Jaffna. I edit Instagram Reels, YouTube Shorts, YouTube videos, brand films, ads and event videos for businesses and creators in Sri Lanka, the UK and anywhere online.",
+    body: [
+      "I'm a full-time Video Editor at The Coconut Island UK, a London food and restaurant brand, and I run my own studio, AX.Visuals, in Jaffna. Before that I edited promotional and social videos at Chroma Global and for Venom X Technology.",
+      "Every edit gets the same care: a strong first three seconds, tight pacing, clean captions, music and sound design, colour grading and motion graphics where they help the story. I work in Premiere Pro, After Effects and DaVinci Resolve, and deliver files ready for Instagram, TikTok, YouTube and ads.",
+    ],
+    points: [
+      { title: "Remote, worldwide", text: "Send footage by Google Drive, WeTransfer or Dropbox — I edit for clients in Sri Lanka, the UK and beyond." },
+      { title: "Social-first", text: "Hooks, captions and pacing built for Reels, Shorts and TikTok, plus 16:9 cuts for YouTube." },
+      { title: "Colour & motion", text: "Colour correction and grading, animated titles and logo animations included where they fit." },
+      { title: "Fast turnaround", text: "Reels in 5–7 working days, with express delivery available for an extra 25–40%." },
+    ],
+    work: ["oLNeoaWaiGk", "mU3a-WvqPUw", "k8ilFbrGgGQ", "vKySIb66TRs"],
+    serviceType: "Video editing",
+    faq: [
+      { q: "Where can I find a video editor in Sri Lanka?", a: "Alex Shanjay is a video editor based in Colombo and Jaffna, Sri Lanka. He edits Reels, Shorts, YouTube videos, brand films and ads, and works remotely for clients across Sri Lanka and internationally. Message him on WhatsApp at +94 76 401 5423." },
+      { q: "Can you edit my video remotely?", a: "Yes. Most projects are fully remote: you share the footage online, receive a first cut, give feedback and get the final files — no meeting in person needed." },
+      { q: "How much does a video editor cost in Sri Lanka?", a: "With Alex Shanjay, basic Reel editing starts from Rs. 4,000 and premium Reel editing is Rs. 6,000–8,000+. Longer YouTube videos and brand films are quoted per project." },
+      { q: "Do you also shoot videos?", a: "Yes. Through AX.Visuals, shoot-and-edit content packages start at Rs. 25,000, with shoots available islandwide in Sri Lanka." },
+    ],
+  },
+  {
+    slug: "video-editing-services",
+    // Visible <h1> (the giant stencil word is decorative).
+    headline: "Video editing services for Reels, YouTube, ads and brand films",
+    nav: "Video editing services",
+    title: "Video Editing Services — Reels, YouTube, Ads & Brand Films | Sri Lanka",
+    description:
+      "Professional video editing services from Sri Lanka: Instagram Reels and YouTube Shorts, YouTube videos, brand films, ads, event videos, colour grading and motion graphics. Remote, worldwide.",
+    kicker: ["Video editing", "Services"],
+    h1: "Video\nEditing",
+    script: "services",
+    lead: "Video editing services for businesses, brands and creators — from a 15-second Reel to a full brand film. Edited by Alex Shanjay (AX.Visuals) in Sri Lanka, delivered anywhere.",
+    body: [
+      "Choose a single edit or a monthly content plan. Every project includes pacing and story, captions, music and sound design, and colour correction, with motion graphics and colour grading when the video needs them.",
+    ],
+    points: [
+      { title: "Reels & Shorts editing", text: "Vertical edits for Instagram, TikTok and YouTube Shorts, with hooks, captions, music and sound design." },
+      { title: "YouTube video editing", text: "Long-form edits with structure, B-roll, captions, titles and thumbnails-ready frames." },
+      { title: "Brand films & ads", text: "Promotional videos and ad edits for restaurants, hotels, salons, retail and product brands." },
+      { title: "Event & personal videos", text: "Birthday reels, celebrations and event highlights, cut to music and colour graded." },
+      { title: "Colour correction & grading", text: "Cinematic colour for film and social content, from LOG footage to a finished look." },
+      { title: "Motion graphics", text: "Animated titles, logo animations, lower thirds and text animation." },
+    ],
+    pricing: [
+      { name: "Basic Reel editing", price: "from Rs. 4,000" },
+      { name: "Premium Reel editing", price: "Rs. 6,000–8,000+" },
+      { name: "YouTube videos & brand films", price: "quoted per project" },
+      { name: "Express delivery", price: "+25–40%" },
+    ],
+    work: ["oLNeoaWaiGk", "WOBtJHS2HF4", "VnaE8Qpd1GI", "vpLkwCO7nB8"],
+    serviceType: "Video editing",
+    faq: [
+      { q: "What video editing services do you offer?", a: "Reels and Shorts editing, YouTube video editing, brand films and ads, event and birthday videos, colour correction and grading, and motion graphics such as animated titles and logo animations." },
+      { q: "How long does video editing take?", a: "Reels are delivered in 5–7 working days. Express delivery is available for an extra 25–40%. Longer projects get a timeline with the quote." },
+      { q: "How many revisions are included?", a: "Two rounds of reasonable revisions are included per video." },
+      { q: "What do I need to send?", a: "Your footage (or a link to it), any logos, music or references you like, the platform it's for, and your deadline." },
+    ],
+  },
+  {
+    slug: "video-shoot-sri-lanka",
+    // Visible <h1> (the giant stencil word is decorative).
+    headline: "Video shoots in Sri Lanka — filmed, edited and ready to post",
+    nav: "Video shoots",
+    title: "Video Shoots in Sri Lanka — Videography for Brands | AX.Visuals",
+    description:
+      "Book a video shoot in Sri Lanka with AX.Visuals: Reels, product and food videos, brand films and photos for businesses. Jaffna-based, shooting islandwide. Packages from Rs. 25,000.",
+    kicker: ["Videography", "AX.Visuals"],
+    h1: "Video\nShoots",
+    script: "on set",
+    lead: "Need content filmed, not just edited? AX.Visuals is the video production studio Alex Shanjay runs in Jaffna — shooting Reels, product and food videos, brand films and photos for businesses, islandwide in Sri Lanka.",
+    body: [
+      "Each package covers the shoot plan, the shoot itself and the final edited Reels and photos, so you get finished, ready-to-post content. Travel charges may apply outside the local area.",
+    ],
+    points: [
+      { title: "Restaurants & cafés", text: "Food, drinks and venue content that makes people want to visit." },
+      { title: "Products & e-commerce", text: "Product videos and photos for ads, listings and social." },
+      { title: "Hotels, salons & retail", text: "Brand films and Reels that show the space, the service and the people." },
+      { title: "Shoot + edit", text: "One team from the plan to the final file — shot, edited, colour graded and delivered." },
+    ],
+    packagesFromContent: true,
+    work: ["vKySIb66TRs", "k8ilFbrGgGQ", "DbFmiYm_jmk", "O1MLFrXW_3Y"],
+    serviceType: "Videography",
+    faq: [
+      { q: "How much does a video shoot cost in Sri Lanka with AX.Visuals?", a: "Shoot-and-edit packages start at Rs. 25,000 (2-hour shoot, 2 Reels, 15 edited photos). Larger packages are Rs. 40,000, Rs. 60,000 and Rs. 85,000 for a full content day." },
+      { q: "Where do you shoot?", a: "AX.Visuals is based in Jaffna and shoots islandwide in Sri Lanka. Travel charges may apply outside the local area." },
+      { q: "How soon do I get the videos?", a: "Edited photos are delivered in 3–5 working days and Reels in 5–7 working days, with express delivery available." },
+      { q: "How do I book a shoot?", a: "Send your brief, date and budget on WhatsApp at +94 76 401 5423 or by email. A 50% advance confirms the booking." },
+    ],
+  },
+  {
+    slug: "reels-shorts-editing",
+    // Visible <h1> (the giant stencil word is decorative).
+    headline: "Instagram Reels, TikTok & YouTube Shorts editing",
+    nav: "Reels & Shorts editing",
+    title: "Instagram Reels & YouTube Shorts Editing — Sri Lanka | From Rs. 4,000",
+    description:
+      "Instagram Reels, TikTok and YouTube Shorts editing with strong hooks, captions, music and sound design. Edited in Sri Lanka by Alex Shanjay (AX.Visuals) for brands and creators worldwide.",
+    kicker: ["Vertical", "9:16"],
+    h1: "Reels &\nShorts",
+    script: "scroll-stop",
+    lead: "Short-form video editing for Instagram Reels, TikTok and YouTube Shorts — built to stop the scroll in the first second and keep people watching to the end.",
+    body: [
+      "I edit Reels and Shorts every week for a UK restaurant brand and for businesses in Sri Lanka: product ads, food and drink content, promos and creator videos. Send raw clips and I'll turn them into a post that's ready to go.",
+    ],
+    points: [
+      { title: "Hook first", text: "The strongest moment up front, so viewers don't swipe away." },
+      { title: "Captions & text", text: "Clean, on-brand captions and animated text that read on a phone." },
+      { title: "Music & sound design", text: "Cuts timed to the beat, with sound effects that make it feel alive." },
+      { title: "Every format", text: "9:16 for Reels, TikTok and Shorts, plus 1:1 and 4:5 versions when you need them." },
+    ],
+    pricing: [
+      { name: "Basic Reel edit", price: "from Rs. 4,000" },
+      { name: "Premium Reel edit", price: "Rs. 6,000–8,000+" },
+      { name: "Monthly content plans", price: "from Rs. 55,000 / month" },
+    ],
+    work: ["k8ilFbrGgGQ", "vpLkwCO7nB8", "FE2bpUpP7DA", "wvOW2gVi9sk", "DbFmiYm_jmk", "vKySIb66TRs"],
+    serviceType: "Short-form video editing",
+    faq: [
+      { q: "How much does Reel editing cost?", a: "Basic Reel editing starts from Rs. 4,000 and premium Reel editing is Rs. 6,000–8,000+. Monthly content plans start from Rs. 55,000 per month." },
+      { q: "Do you edit TikToks and YouTube Shorts too?", a: "Yes — the same vertical edit works for Instagram Reels, TikTok and YouTube Shorts, and I can deliver a version for each." },
+      { q: "Can you add captions and music?", a: "Yes. Captions, text animation, music and sound design are part of every Reel edit." },
+      { q: "How fast can I get a Reel?", a: "Reels are delivered in 5–7 working days, or faster with express delivery for an extra 25–40%." },
+    ],
+  },
 ];

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
-import { rates, sections, services, studio } from "../../data/content";
+import { rates, sections, seoPages, services, studio } from "../../data/content";
 import { useStaggerIn } from "../../hooks/useStaggerIn";
 import SectionHeader from "../ui/SectionHeader";
 import Tray from "../ui/Tray";
@@ -51,6 +51,15 @@ export default function Services() {
             </li>
           </ul>
         </Tray>
+
+        <nav aria-label="Service details" className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <span className="mono-label">More detail</span>
+          {seoPages.map((page) => (
+            <a key={page.slug} href={`/${page.slug}/`} className="inline-flex items-center gap-1 font-bold text-ink underline decoration-orange decoration-2 underline-offset-4">
+              {page.nav} <FiArrowUpRight />
+            </a>
+          ))}
+        </nav>
       </div>
     </section>
   );

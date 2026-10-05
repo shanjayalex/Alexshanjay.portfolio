@@ -6,9 +6,9 @@ import Logo from "../ui/Logo";
 import MagneticButton from "../ui/MagneticButton";
 import NowChip from "../ui/NowChip";
 
-function Monogram() {
+function Monogram({ base }) {
   return (
-    <a href="#top" className="flex items-center gap-2.5" aria-label="Alex Shanjay — back to top">
+    <a href={base || "#top"} className="flex items-center gap-2.5" aria-label="Alex Shanjay — back to top">
       <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-paper-2">
         <Logo variant="mark" title={null} className="h-[21px] w-auto translate-y-[-0.5px]" />
       </span>
@@ -19,7 +19,8 @@ function Monogram() {
   );
 }
 
-export default function Nav() {
+// `base`: "/" on the landing pages, so section links point back to the home page.
+export default function Nav({ base = "" }) {
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -48,7 +49,7 @@ export default function Nav() {
 
   return (
     <>
-      <a href="#videos" className="sr-only-focusable pill pill-orange fixed left-4 top-4 z-[150]">
+      <a href={`${base}#videos`} className="sr-only-focusable pill pill-orange fixed left-4 top-4 z-[150]">
         Skip to work
       </a>
 
@@ -62,15 +63,15 @@ export default function Nav() {
           aria-label="Main"
         >
           <div className="flex min-w-0 items-center gap-3">
-            <Monogram />
-            <NowChip />
+            <Monogram base={base} />
+            <NowChip base={base} />
           </div>
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
-                  href={link.href}
+                  href={`${base}${link.href}`}
                   className="mono-label rounded-full px-3.5 py-2 text-ink transition-colors hover:bg-ink hover:text-paper-2"
                 >
                   {link.label}
@@ -118,7 +119,7 @@ export default function Nav() {
               {navLinks.map((link, i) => (
                 <li key={link.href} className="overflow-hidden">
                   <motion.a
-                    href={link.href}
+                    href={`${base}${link.href}`}
                     onClick={() => setMenuOpen(false)}
                     className="display block text-[clamp(2.6rem,13vw,5rem)] transition-colors hover:text-orange-deep"
                     initial={{ y: "100%" }}

@@ -66,8 +66,12 @@ Export 1080×1080 WebP files into `public/design/` and set `image` on the matchi
 
 ## SEO & AI search
 
+- **Landing pages.** `seoPages` in `content.js` becomes four pre-rendered pages, each aimed at one kind of search: `/video-editor-sri-lanka/`, `/video-editing-services/`, `/video-shoot-sri-lanka/`, `/reels-shorts-editing/`. Each has its own title, description, visible `<h1>`, content, work samples, prices, FAQ and JSON-LD (`WebPage`, `BreadcrumbList`, `Service`, `FAQPage`, `VideoObject`). To add one, copy an entry in `seoPages` and add its URL to `public/sitemap.xml`. Only publish true claims.
+- **Head tags + JSON-LD** for every page come from `src/lib/seo.js`. `scripts/prerender.js` writes them into each page's HTML.
+- **Videos** need `uploaded` and `seconds` in `content.js` (from YouTube) so Google can show them as video results.
+
 - **Pre-rendered HTML.** `npm run build` renders the whole app to static HTML (`src/entry-server.jsx` → `scripts/prerender.js`), then the browser hydrates it. Search engines and AI crawlers (GPTBot, ClaudeBot, PerplexityBot), which don't run JavaScript, see every section as plain text. Check with **View Page Source** on the live site.
-- **Head tags + JSON-LD** are generated from `content.js` by the `siteHead` plugin in `vite.config.js`: title, description, canonical, Open Graph, robots, geo, and one connected `@graph` with `Person`, `ProfessionalService` (AX.Visuals, with offers), `WebSite`, `FAQPage` and a `VideoObject` per video. The FAQ schema uses the same `faq` array as the visible FAQ, so they always match.
+- The home page JSON-LD has `Person`, `ProfessionalService` (AX.Visuals, with offers), `WebSite`, `ProfilePage`, `FAQPage` and a `VideoObject` per video. The FAQ schema uses the same `faq` array as the visible FAQ, so they always match.
 - **Root files** in `public/`: `robots.txt` (allows AI crawlers, links the sitemap), `sitemap.xml`, `llms.txt` (plain-text summary for AI tools). These are hand-written. Update `llms.txt` if prices or services change, and bump `<lastmod>` in `sitemap.xml` (and `site.lastmod`) after content updates.
 - **Pre-render rule of thumb:** components must render the same thing on the server and on first load in the browser. Read `window`, `document`, `sessionStorage` or the current time inside `useEffect`/`useLayoutEffect`, not during render.
 

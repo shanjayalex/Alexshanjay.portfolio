@@ -7,8 +7,31 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.alexshanjay.live/video-editor-sri-lanka/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.alexshanjay.live/video-editing-services/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.alexshanjay.live/video-shoot-sri-lanka/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.alexshanjay.live/reels-shorts-editing/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.alexshanjay.live/llms.txt</loc>
     <lastmod>2026-10-05</lastmod>
   </url>
-  <!-- Add one <url> per real page (e.g. /work, /about, /contact) once they exist as separate URLs -->
 </urlset>

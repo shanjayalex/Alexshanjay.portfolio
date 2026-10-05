@@ -1,18 +1,22 @@
-// Bakes the rendered app into dist/index.html so search engines and AI
-// crawlers (which don't run JavaScript) see every section as plain HTML.
-import { readFile, rm, writeFile } from "node:fs/promises";
+// Bakes every page (home + SEO landing pages) into static HTML so search
+// engines and AI crawlers (which don't run JavaScript) see the full content,
+// each with its own <title>, description, canonical URL and JSON-LD.
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 
-const dist = resolve("dist/index.html");
-const server = resolve("dist-ssr/entry-server.js");
+const template = await readFile(resolve("dist/index.html"), "utf8");
+const { render, head, routes } = await import(pathToFileURL(resolve("dist-ssr/entry-server.js")).href);
 
-const { render } = await import(pathToFileURL(server).href);
-const template = await readFile(dist, "utf8");
-const marker = '<div id="root"></div>';
-if (!template.includes(marker)) throw new Error(`prerender: ${marker} not found in dist/index.html`);
+const root = '<div id="root"></div>';
+if (!template.includes(root)) throw new Error(`prerender: ${root} not found in dist/index.html`);
+if (!template.includes("</head>")) throw new Error("prerender: </head> not found");
 
-const html = template.replace(marker, `<div id="root">${render()}</div>`);
-await writeFile(dist, html);
+for (const route of routes) {
+  const html = template.replace("</head>", `    ${head(route)}\n  </head>`).replace(root, `<div id="root">${render(route)}</div>`);
+  const file = resolve("dist", `.${route}`, "index.html");
+  await mkdir(dirname(file), { recursive: true });
+  await writeFile(file, html);
+  console.log(`prerender: ${route} → ${(html.length / 1024).toFixed(1)} kB`);
+}
 await rm(resolve("dist-ssr"), { recursive: true, force: true });
-console.log(`prerender: wrote ${(html.length / 1024).toFixed(1)} kB to dist/index.html`);

@@ -82,7 +82,8 @@ export default function Hero() {
         <div data-title className="relative origin-center">
           <span className="ghost-script absolute bottom-[78%] left-1/2 -translate-x-1/2 text-[0.42em]" aria-hidden="true" data-text={copy.ghost} />
           <div data-back-word className="relative">
-            <StencilTitle as="h1" text={copy.title} ring reveal={false} label={`${profile.name} — Video & Design Portfolio`} />
+            {/* Decorative word; the page's real <h1> is the line under the trays. */}
+            <StencilTitle as="div" text={copy.title} ring reveal={false} label={`${profile.name} — Video & Design Portfolio`} />
           </div>
           <DepthPortrait title={copy.title} />
           <span data-script-wrap className="absolute bottom-[34%] left-[1%] z-20 inline-block md:bottom-[26%] md:left-[calc(50%+0.48em)]">
@@ -109,10 +110,12 @@ export default function Hero() {
       </div>
 
       <div className="mx-auto mt-12 flex max-w-[1180px] flex-col items-start justify-between gap-8 md:mt-16 md:flex-row md:items-end">
-        <p data-fade className="max-w-xl text-[17px] leading-relaxed md:text-lg">
-          <b className="font-extrabold text-ink">{profile.name}</b> · {profile.title} · {profile.role} ·{" "}
-          {profile.location} <span aria-label="Sri Lanka flag">🇱🇰</span>
-        </p>
+        <div data-fade className="max-w-xl">
+          <h1 className="card-title text-[clamp(1.4rem,2.4vw,2rem)]">{profile.headline}</h1>
+          <p className="mt-2 text-[17px] leading-relaxed md:text-lg">
+            {profile.title} · {profile.role} · {profile.location} <span aria-label="Sri Lanka flag">🇱🇰</span>
+          </p>
+        </div>
         <div data-fade className="flex flex-wrap gap-3">
           <MagneticButton href="#contact" className="pill pill-orange">
             Hire me

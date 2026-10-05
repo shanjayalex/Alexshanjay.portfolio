@@ -35,11 +35,20 @@ export default function StencilTitle({ text, as: Tag = "h2", ring = false, revea
   });
 
   return (
-    <Tag ref={ref} id={id} className={`display squash ${className}`} style={style} aria-label={label ?? lines.join(" ")}>
+    <Tag
+      ref={ref}
+      id={id}
+      className={`display squash ${className}`}
+      style={style}
+      // Headings get a readable name; decorative div/span copies are hidden from screen readers.
+      {...(Tag === "div" || Tag === "span" ? { "aria-hidden": true } : { "aria-label": label ?? lines.join(" ") })}
+    >
       {lines.map((line, li) => (
         <span key={li} className="stencil block whitespace-nowrap" aria-hidden="true">
+          {li > 0 && " "}
           {[...line].map((ch, ci) => {
-            if (ch === " ") return <span key={ci} className="inline-block w-[0.28em]" />;
+            // The space keeps the words separate in the page text (search engines read it).
+            if (ch === " ") return <span key={ci} className="inline-block w-[0.28em]"> </span>;
             const useRing = li === ringLine && ci === ringChar;
             return (
               <span key={ci} className="char-mask">
