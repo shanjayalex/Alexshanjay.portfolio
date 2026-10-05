@@ -371,7 +371,7 @@ export const seoPages = [
     slug: "video-editor-sri-lanka",
     // Visible <h1> (the giant stencil word is decorative).
     headline: "Video editor in Sri Lanka — Colombo & Jaffna, editing for clients worldwide",
-    nav: "Video editor",
+    nav: "Video editor in Sri Lanka",
     title: "Video Editor in Sri Lanka — Hire Alex Shanjay | Colombo & Jaffna",
     description:
       "Freelance video editor in Sri Lanka (Colombo & Jaffna) editing Reels, YouTube videos, brand films and ads for clients in Sri Lanka, the UK and worldwide. Reel edits from Rs. 4,000.",
@@ -396,6 +396,42 @@ export const seoPages = [
       { q: "Can you edit my video remotely?", a: "Yes. Most projects are fully remote: you share the footage online, receive a first cut, give feedback and get the final files — no meeting in person needed." },
       { q: "How much does a video editor cost in Sri Lanka?", a: "With Alex Shanjay, basic Reel editing starts from Rs. 4,000 and premium Reel editing is Rs. 6,000–8,000+. Longer YouTube videos and brand films are quoted per project." },
       { q: "Do you also shoot videos?", a: "Yes. Through AX.Visuals, shoot-and-edit content packages start at Rs. 25,000, with shoots available islandwide in Sri Lanka." },
+    ],
+  },
+  {
+    slug: "video-editor-jaffna",
+    // Visible <h1> (the giant stencil word is decorative).
+    headline: "Video editor in Jaffna — Reels, event videos and shoots across the North",
+    nav: "Video editor in Jaffna",
+    title: "Video Editor in Jaffna — Alex Shanjay | Reels, Events & Shoots | AX.Visuals",
+    description:
+      "Video editor in Jaffna, Sri Lanka: Alex Shanjay (AX.Visuals, Manipay) edits Reels, festival and event videos, birthday reels and business promos, and shoots across Jaffna. From Rs. 4,000.",
+    kicker: ["Jaffna", "Northern Province"],
+    h1: "Jaffna\nEditor",
+    script: "local",
+    lead: "I'm Alex Shanjay, a video editor from Manipay, Jaffna, and the founder of AX.Visuals, a video studio based in Jaffna. I edit and shoot Reels, promos, event and festival videos for Jaffna businesses and families, and edit for clients in Colombo, the UK and worldwide.",
+    body: [
+      "Local work means I can be at your shop, restaurant or event in person: plan the shoot, film it and deliver edited Reels and photos, ready to post. Recent edits include cinematic reels from the Nallur festival and birthday celebration reels.",
+      "I also work full-time as a Video Editor for The Coconut Island UK, so Jaffna clients get the same social-first editing — hooks, captions, music, colour grading — that a UK brand gets.",
+    ],
+    points: [
+      { title: "Shoots in Jaffna", text: "Restaurants, cafés, shops, salons and products — filmed on location by AX.Visuals." },
+      { title: "Festival & event videos", text: "Temple festivals, birthdays and celebrations, cut to music and colour graded." },
+      { title: "Reels for local businesses", text: "Instagram Reels, TikTok and YouTube Shorts that bring customers through the door." },
+      { title: "Meet in person", text: "Based in Manipay — easy to meet anywhere in Jaffna to plan your video." },
+    ],
+    pricing: [
+      { name: "Basic Reel editing", price: "from Rs. 4,000" },
+      { name: "Premium Reel editing", price: "Rs. 6,000–8,000+" },
+      { name: "Shoot + edit packages (AX.Visuals)", price: "from Rs. 25,000" },
+    ],
+    work: ["mU3a-WvqPUw", "O1MLFrXW_3Y", "VnaE8Qpd1GI", "vKySIb66TRs"],
+    serviceType: "Video editing",
+    faq: [
+      { q: "Who is a good video editor in Jaffna?", a: "Alex Shanjay of AX.Visuals is a video editor from Manipay, Jaffna. He edits Reels, Shorts, festival and event videos and business promos, and shoots across Jaffna. He also works as a Video Editor for The Coconut Island UK." },
+      { q: "Do you shoot videos in Jaffna?", a: "Yes. AX.Visuals is based in Jaffna and shoots restaurants, shops, products and events locally, with shoots available islandwide in Sri Lanka." },
+      { q: "How much does video editing cost in Jaffna?", a: "Basic Reel editing starts from Rs. 4,000 and premium Reel editing is Rs. 6,000–8,000+. Shoot-and-edit packages start at Rs. 25,000." },
+      { q: "How do I contact a video editor in Jaffna?", a: "Message Alex Shanjay on WhatsApp at +94 76 401 5423 or email shanjayalex09@gmail.com with your idea, date and budget." },
     ],
   },
   {

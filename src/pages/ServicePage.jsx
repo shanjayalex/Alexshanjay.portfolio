@@ -1,6 +1,6 @@
 import { MotionConfig } from "framer-motion";
-import { FiArrowUpRight } from "react-icons/fi";
-import { packages, process, profile, seoPages, shorts, videos } from "../data/content";
+import { FiArrowUpRight, FiLinkedin } from "react-icons/fi";
+import { packages, process, profile, seoPages, shorts, socials, videos } from "../data/content";
 import { useLightbox } from "../lib/lightbox";
 import { fitLength } from "../lib/type";
 import Contact from "../components/sections/Contact";
@@ -17,6 +17,7 @@ import VideoCard from "../components/ui/VideoCard";
 import WhatsAppFab from "../components/ui/WhatsAppFab";
 
 const rupees = (n) => `Rs. ${n.toLocaleString("en-US")}`;
+const linkedin = socials.find((s) => s.label === "LinkedIn")?.href;
 
 function Work({ ids }) {
   const { open } = useLightbox();
@@ -108,6 +109,11 @@ export default function ServicePage({ page }) {
                     <MagneticButton href="#work" className="pill pill-outline">
                       See the work
                     </MagneticButton>
+                    {linkedin && (
+                      <a href={linkedin} target="_blank" rel="noreferrer me" className="pill pill-outline">
+                        <FiLinkedin /> {profile.name} on LinkedIn
+                      </a>
+                    )}
                     <p className="serif-italic text-xl text-ink-2">{profile.replyTime}.</p>
                   </div>
                 </div>
