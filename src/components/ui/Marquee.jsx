@@ -6,7 +6,7 @@ import { gsap, ScrollTrigger, MOTION } from "../../lib/gsap";
 // `renderItem` and `separator` let other bands (credits) reuse the motion with their own type.
 const dot = <span className="h-1.5 w-1.5 rounded-full bg-orange" />;
 
-export default function Marquee({ items, className = "", label = "Tools", itemClassName = "mono-label text-[13px] text-ink md:text-[15px]", renderItem = (item) => item, separator = dot, repeat = 1, pauseOnHover = false }) {
+export default function Marquee({ items, className = "", label = "Tools", itemClassName = "mono-label text-[13px] text-ink md:text-[15px]", renderItem = (item) => item, separator = dot, repeat = 1 }) {
   const ref = useRef(null);
   // Two identical halves for the -50% loop; `repeat` lengthens each half for short lists.
   const row = Array.from({ length: repeat * 2 }, () => items).flat();
@@ -29,16 +29,6 @@ export default function Marquee({ items, className = "", label = "Tools", itemCl
           settle(direction);
         },
       });
-
-      if (!pauseOnHover) return undefined;
-      const pause = () => gsap.to(loop, { timeScale: 0, duration: 0.4, overwrite: true });
-      const resume = () => gsap.to(loop, { timeScale: direction, duration: 0.6, overwrite: true });
-      el.addEventListener("pointerenter", pause);
-      el.addEventListener("pointerleave", resume);
-      return () => {
-        el.removeEventListener("pointerenter", pause);
-        el.removeEventListener("pointerleave", resume);
-      };
     });
   });
 

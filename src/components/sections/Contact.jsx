@@ -1,8 +1,6 @@
 import { FiArrowUpRight } from "react-icons/fi";
 import { profile, sections, socials } from "../../data/content";
 import { fitLength } from "../../lib/type";
-import EditTransition from "../fx/EditTransition";
-import ExportButton from "../fx/ExportButton";
 import MetaRow from "../ui/MetaRow";
 import ScriptWord from "../ui/ScriptWord";
 import StencilTitle from "../ui/StencilTitle";
@@ -15,16 +13,14 @@ const rows = [
   ...socials.filter((s) => s.href).map((s) => ({ label: s.label, value: s.handle, href: s.href })),
 ];
 
-// The primary row "exports" (render bar) before opening; the rest glitch on hover.
 function ContactRow({ label, value, href, primary }) {
   const external = href.startsWith("http");
-  const Link = primary ? ExportButton : "a";
-  const linkProps = primary ? {} : { target: external ? "_blank" : undefined, rel: external ? "noreferrer" : undefined };
   return (
     <li>
-      <Link
+      <a
         href={href}
-        {...linkProps}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noreferrer" : undefined}
         className={`group relative flex items-center justify-between gap-4 overflow-hidden border-b border-ink/20 px-1 py-5 transition-colors md:py-7 ${
           primary ? "text-ink" : ""
         }`}
@@ -42,13 +38,13 @@ function ContactRow({ label, value, href, primary }) {
           </span>
         </span>
         <span
-          className={`relative grid h-12 w-12 shrink-0 place-items-center rounded-full transition-[transform,background-color] duration-500 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[-8px] group-hover:rotate-45 md:h-16 md:w-16 ${primary ? "" : "glitch"} ${
+          className={`relative grid h-12 w-12 shrink-0 place-items-center rounded-full transition-[transform,background-color] duration-500 ease-[cubic-bezier(.16,1,.3,1)] group-hover:translate-x-[-8px] group-hover:rotate-45 md:h-16 md:w-16 ${
             primary ? "bg-orange text-ink group-hover:bg-ink group-hover:text-orange" : "bg-ink text-paper-2 group-hover:bg-paper-2 group-hover:text-ink"
           }`}
         >
           <FiArrowUpRight className="h-5 w-5 md:h-6 md:w-6" />
         </span>
-      </Link>
+      </a>
     </li>
   );
 }
@@ -58,15 +54,12 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative px-[var(--gutter)] pb-24 pt-24 md:pb-32 md:pt-32">
-      <EditTransition type="fadeblack" />
       <div className="mx-auto max-w-[1600px]">
         <MetaRow left={copy.meta[0]} right={copy.meta[1]} />
 
         <div className="type-stack relative mt-[max(0.5em,3rem)]" style={{ "--len": fitLength(title) }}>
           <span className="ghost-script pointer-events-none absolute right-[2%] top-[-0.25em] text-[0.4em]" aria-hidden="true" data-text={copy.ghost} />
-          <div data-title-card>
-            <StencilTitle text={title} label={copy.lines.join(" ")} className="relative" />
-          </div>
+          <StencilTitle text={title} label={copy.lines.join(" ")} className="relative" />
           <ScriptWord className="absolute bottom-[-0.32em] right-[2%] z-10 -rotate-8 text-[0.62em]">{copy.script}</ScriptWord>
         </div>
 

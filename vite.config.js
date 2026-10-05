@@ -155,8 +155,7 @@ export default defineConfig({
         codeSplitting: {
           groups: [
             { name: "react", test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ },
-            // Draggable + InertiaPlugin stay out: the Shorts carousel imports them on demand.
-            { name: "motion", test: /node_modules[\\/](gsap(?![\\/](Draggable|InertiaPlugin|VelocityTracker))|lenis|framer-motion|motion-dom|motion-utils)[\\/]/ },
+            { name: "motion", test: /node_modules[\\/](gsap|lenis|framer-motion|motion-dom|motion-utils)[\\/]/ },
           ],
         },
       },
