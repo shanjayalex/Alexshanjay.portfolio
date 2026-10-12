@@ -74,7 +74,7 @@ export const navLinks = [
 // Words used by the recurring typographic header on each section.
 export const sections = {
   hero: { meta: ["Built to Inspire", "Updated 2026"], ghost: "Edited with Heart", script: "refine", title: "Portfolio", tag: "Video & Design" },
-  reel: { script: "2026", title: "Showreel", tag: "Play the reel" },
+  reel: { script: "glimpse", title: "Showreel", tag: "Play the reel" },
   videos: { meta: ["Long-form", "Episodes"], ghost: "Edited with Heart", script: "motion", title: "Videos", tag: "16:9 · Edits" },
   shorts: { meta: ["Vertical", "9:16"], ghost: "Made for the scroll", script: "stories", title: "Shorts", tag: "Shorts & Reels" },
   design: { meta: ["Print & Social", "1:1"], ghost: "Built with Heart", script: "crafted", title: "Design", tag: "Graphic Work" },
@@ -86,10 +86,17 @@ export const sections = {
 };
 
 export const showreel = {
-  id: "VfRRBIF4I6g", // [EDIT] swap for a new reel if you cut one
-  title: "Showreel 2026",
-  uploaded: "2026-03-25T17:20:31-07:00",
-  seconds: 26,
+  id: "SAPe_XFSlxg", // swap for a new reel when you cut one (update uploaded + seconds too)
+  title: "Showreel 2026 — A Glimpse",
+  uploaded: "2026-10-12T14:33:25-07:00",
+  seconds: 19,
+  // Lines from the reel itself, used around the player.
+  intro: "I'm Alex Shanjay — here's a glimpse of what I create.",
+  outro: "Let's create something extraordinary.",
+  // "Glimpse" strip: YouTube's three auto-frames (roughly ¼, ½ and ¾ through).
+  frames: [1, 2, 3],
+  // YouTube only has a low-res thumbnail for this reel; its title card matches the site's share image.
+  poster: "/og.jpg",
 };
 
 // Titles below come from the YouTube upload names — [EDIT] polish if you like.

@@ -690,6 +690,47 @@ a {
   box-shadow: inset 0 0 0 2px rgb(232 137 28 / 0.25);
 }
 
+/* ── Showreel "glimpse" film strip ────────────────────────── */
+/* A dark strip with a row of sprocket holes along the top and bottom. */
+.glimpse-strip {
+  position: relative;
+  border-radius: 10px;
+  background-color: #141416;
+  box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.9);
+}
+.glimpse-strip::before,
+.glimpse-strip::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background-image: radial-gradient(ellipse 5px 4px at 50% 50%, rgb(245 244 241 / 0.85) 98%, transparent);
+  background-size: 22px 14px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+.glimpse-strip::before {
+  top: 6px;
+}
+.glimpse-strip::after {
+  bottom: 6px;
+}
+@media (min-width: 768px) {
+  .glimpse-strip::before,
+  .glimpse-strip::after {
+    height: 18px;
+    background-image: radial-gradient(ellipse 6px 5px at 50% 50%, rgb(245 244 241 / 0.85) 98%, transparent);
+    background-size: 28px 18px;
+  }
+  .glimpse-strip::before {
+    top: 8px;
+  }
+  .glimpse-strip::after {
+    bottom: 8px;
+  }
+}
+
 /* ── Cursor ───────────────────────────────────────────────── */
 .has-cursor,
 .has-cursor * {
