@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
-import { designs, profile, sections, studio, videos } from "../../data/content";
+import { designs, heroDesigns as heroDesignIds, profile, sections, studio, videos } from "../../data/content";
 import { useGsap } from "../../hooks/useGsap";
 import { gsap, DESKTOP_MOTION, MOTION, SCRIPT_HIDDEN, SCRIPT_SHOWN } from "../../lib/gsap";
 import { onIntroDone } from "../../lib/intro";
@@ -20,7 +20,7 @@ export default function Hero() {
   const ref = useRef(null);
   const { open } = useLightbox();
   const heroVideos = videos.slice(0, 3);
-  const heroDesigns = designs.slice(0, 3);
+  const heroDesigns = heroDesignIds.map((id) => designs.find((d) => d.id === id)).filter(Boolean);
 
   useGsap(ref, (mm, el) => {
     mm.add(MOTION, () => {
@@ -103,7 +103,7 @@ export default function Hero() {
               design={design}
               index={i}
               tilt={false}
-              onOpen={() => open({ kind: "image", items: designs, index: i })}
+              onOpen={() => open({ kind: "image", items: designs, index: designs.indexOf(design) })}
             />
           ))}
         </Tray>

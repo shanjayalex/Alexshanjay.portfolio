@@ -141,6 +141,9 @@ export const designFilters = ["All", "Restaurant", "Product Ads", "Café"];
 // version, both in /public/design. `focus` sets the card crop (object-position)
 // for tall posters. `concept: true` marks self-initiated spec work for a brand
 // that wasn't a client — it shows a "Concept" tag so nobody assumes otherwise.
+// The three designs in the hero's lower tray (by id), left to right.
+export const heroDesigns = ["coconut-island-free-fry", "barista-made-for-you", "nescafe-gold-collection"];
+
 export const designs = [
   {
     id: "coconut-island-free-fry",
