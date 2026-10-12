@@ -11,13 +11,21 @@ const FOCUSABLE = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabi
 
 function Media({ item, kind, index }) {
   if (kind === "image") {
+    // Real posters show whole, at their own shape (4:5, 9:16…); placeholders stay square.
+    if (item.image) {
+      return (
+        <img
+          src={item.image}
+          alt={item.title}
+          width={item.width}
+          height={item.height}
+          className="h-auto max-h-[76vh] w-auto max-w-[86vw] rounded-[20px] bg-paper-2 shadow-2xl"
+        />
+      );
+    }
     return (
       <div className="aspect-square w-[min(86vw,72vh)] overflow-hidden rounded-[20px] bg-paper-2">
-        {item.image ? (
-          <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
-        ) : (
-          <PosterPlaceholder item={item} index={index} large />
-        )}
+        <PosterPlaceholder item={item} index={index} large />
       </div>
     );
   }

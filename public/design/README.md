@@ -1,38 +1,30 @@
 # Design exports
 
-Drop graphic design work here. It shows in the **Design** section and in the hero's lower tray (the first three designs).
+Graphic design work shown in the **Design** section and in the hero's lower tray (the first three designs).
 
 ## Image spec
 
-- **Size:** 1080 × 1080 px (1:1, square)
-- **Format:** WebP, quality ~80 (aim for under 200 KB each)
-- **Naming:** `01-ax-instagram.webp`, `02-coconut-promo.webp`, … (the number sets the order)
-- **Count:** 6–12 pieces works best. Cards sit in trays of three.
+- **Any shape** — 4:5 posts and 9:16 stories both work. Cards show a 4:5 crop; the lightbox shows the whole poster.
+- **Two files per design**, WebP: the full image at up to 1080 px wide (`name.webp`, quality ~82) and a 600 px card version (`name-600.webp`, quality ~78).
+- Aim for under 200 KB (full) and under 70 KB (card).
 
-## Hooking an image up
+## Hooking a design up
 
-Open `src/data/content.js`, find the design in `designs`, and set `image`:
+Add an entry to `designs` in `src/data/content.js`:
 
 ```js
 {
-  id: "coconut-island-promo",
-  title: "The Coconut Island — Weekend promo",
-  category: "Restaurant",               // one of: Social Posts · Branding · Restaurant · Posters
-  image: "/design/02-coconut-promo.webp",
-  caption: "Promo poster for The Coconut Island restaurant.",
-  href: "https://www.instagram.com/p/…/", // optional "View on Instagram ↗" link
+  id: "coconut-island-free-fry",
+  title: "The Coconut Island — Free Chickpea / Potato Fry",
+  category: "Restaurant",                         // must match a name in designFilters
+  image: "/design/coconut-island-free-fry.webp",  // full size (lightbox)
+  thumb: "/design/coconut-island-free-fry-600.webp", // card
+  width: 941, height: 1672,                       // size of the full image
+  focus: "50% 22%",                               // optional: where the 4:5 card crop centres
+  concept: true,                                  // optional: spec work for a brand that wasn't a client
+  caption: "One line about the piece.",
+  href: "https://www.instagram.com/p/…/",         // optional Instagram link
 },
 ```
 
-While `image` is `null`, a typographic placeholder poster is shown instead.
-
-## Expected slots
-
-| Slot | File | Design |
-|---|---|---|
-| 01 | `01-ax-instagram.webp` | AX.Visuals Instagram post (instagram.com/p/Dd9xJcnTEEn) |
-| 02 | `02-coconut-promo.webp` | The Coconut Island — weekend promo |
-| 03 | `03-brand-identity.webp` | Brand identity system |
-| 04 | `04-event-poster.webp` | Event poster |
-| 05 | `05-coconut-menu.webp` | The Coconut Island — menu post |
-| 06 | `06-social-carousel.webp` | Social carousel |
+Order in the array = order on the site. Keep real client work first.

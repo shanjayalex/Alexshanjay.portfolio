@@ -13,7 +13,7 @@ export const site = {
     "Hire Alex Shanjay, a video editor in Sri Lanka (Colombo & Jaffna): Reels & Shorts editing, YouTube videos, brand films, ads, colour grading and video shoots by AX.Visuals. Remote editing worldwide.",
   ogImage: "/og.jpg",
   updated: "2026",
-  lastmod: "2026-10-05", // sitemap date — bump when content changes
+  lastmod: "2026-10-12", // sitemap date — bump when content changes
   locale: "en_LK",
   geo: { region: "LK-41", placename: "Jaffna" },
   // Summary shown to AI answer engines (rendered in About + JSON-LD).
@@ -97,6 +97,7 @@ export const showreel = {
 // (Google needs an upload date for video results). Add them for new videos too.
 export const videos = [
   { id: "oLNeoaWaiGk", title: "Cinematic Reel", category: "Cinematic", year: 2026, featured: true, uploaded: "2026-09-25T14:20:08-07:00", seconds: 8 },
+  { id: "dRpsjFcXw-g", title: "Before / After — Premiere Pro Edit", category: "Edit Breakdown", year: 2026, uploaded: "2026-10-12T07:21:35-07:00", seconds: 10 },
   { id: "mU3a-WvqPUw", title: "Nallur — Cinematic Reel", category: "Colour Grading", year: 2026, uploaded: "2026-09-25T14:23:52-07:00", seconds: 34 },
   { id: "WOBtJHS2HF4", title: "Cinematic Fight", category: "Action & VFX", year: 2026, uploaded: "2026-10-01T22:52:05-07:00", seconds: 40 },
   { id: "_zKvcEZlW2I", title: "Love Reel", category: "Storytelling", year: 2026, uploaded: "2026-09-25T14:25:01-07:00", seconds: 36 },
@@ -107,6 +108,9 @@ export const videos = [
 ];
 
 export const shorts = [
+  { id: "NRxfKfkg7MA", title: "Real Estate Edit — 01", category: "Real Estate", year: 2026, uploaded: "2026-10-12T07:24:15-07:00", seconds: 31 },
+  { id: "ewZIMDq8YyI", title: "Real Estate Edit — 02", category: "Real Estate", year: 2026, uploaded: "2026-10-12T07:29:21-07:00", seconds: 61 },
+  { id: "rpVljlnqezc", title: "Instagram Reel", category: "Social Reel", year: 2026, uploaded: "2026-10-12T07:31:06-07:00", seconds: 37 },
   { id: "k8ilFbrGgGQ", title: "Product Ad — 01", category: "Social Ad", year: 2026, uploaded: "2026-08-30T11:09:19-07:00", seconds: 18 },
   { id: "vpLkwCO7nB8", title: "Product Ad — 02", category: "Social Ad", year: 2026, uploaded: "2026-08-30T11:00:31-07:00", seconds: 31 },
   { id: "FE2bpUpP7DA", title: "Product Ad — 03", category: "Social Ad", year: 2026, uploaded: "2026-08-30T10:54:43-07:00", seconds: 8 },
@@ -131,54 +135,79 @@ export const archive = [
   { id: "yBrnS6HTHUQ", title: "Gym Edit", category: "Motion Graphics" },
 ];
 
-export const designFilters = ["All", "Social Posts", "Branding", "Restaurant", "Posters"];
+export const designFilters = ["All", "Restaurant", "Product Ads", "Café"];
 
-// [EDIT] Export each design as a 1080×1080 WebP into /public/design/ and set
-// `image` (e.g. "/design/01-ax-launch.webp"). While `image` is null a
-// typographic placeholder poster is shown instead.
+// Design work. `image` is the full poster (lightbox), `thumb` the 600px card
+// version, both in /public/design. `focus` sets the card crop (object-position)
+// for tall posters. `concept: true` marks self-initiated spec work for a brand
+// that wasn't a client — it shows a "Concept" tag so nobody assumes otherwise.
 export const designs = [
   {
-    id: "ax-instagram",
-    title: "AX.Visuals — Instagram post",
-    category: "Social Posts",
-    image: null, // "/design/01-ax-instagram.webp"
-    href: "https://www.instagram.com/p/Dd9xJcnTEEn/",
-    caption: "Launch post for the AX.Visuals Instagram feed.",
-  },
-  {
-    id: "coconut-island-promo",
-    title: "The Coconut Island — Weekend promo",
+    id: "coconut-island-free-fry",
+    title: "The Coconut Island — Free Chickpea / Potato Fry",
     category: "Restaurant",
-    image: null, // "/design/02-coconut-promo.webp"
-    caption: "Promo poster for The Coconut Island restaurant.",
+    image: "/design/coconut-island-free-fry.webp",
+    thumb: "/design/coconut-island-free-fry-600.webp",
+    width: 941,
+    height: 1672,
+    focus: "50% 22%",
+    caption: "October Unpacked: The Taste Trail — story ad for The Coconut Island, Brighton.",
   },
   {
-    id: "brand-identity",
-    title: "Brand identity system",
-    category: "Branding",
-    image: null, // "/design/03-brand-identity.webp"
-    caption: "Logo, colour and type system for a local brand.",
-  },
-  {
-    id: "event-poster",
-    title: "Event poster",
-    category: "Posters",
-    image: null, // "/design/04-event-poster.webp"
-    caption: "Event poster with bold display type.",
-  },
-  {
-    id: "coconut-island-menu",
-    title: "The Coconut Island — Menu post",
+    id: "coconut-island-october-unpacked",
+    title: "The Coconut Island — October Unpacked",
     category: "Restaurant",
-    image: null, // "/design/05-coconut-menu.webp"
-    caption: "Menu highlight post for social.",
+    image: "/design/coconut-island-october-unpacked.webp",
+    thumb: "/design/coconut-island-october-unpacked-600.webp",
+    width: 941,
+    height: 1672,
+    focus: "50% 30%",
+    caption: "Campaign poster for The Coconut Island's October offer, Brighton.",
   },
   {
-    id: "social-carousel",
-    title: "Social carousel",
-    category: "Social Posts",
-    image: null, // "/design/06-social-carousel.webp"
-    caption: "Carousel post series for a brand's Instagram.",
+    id: "nescafe-gold-collection",
+    title: "Nescafé — The Gold Collection",
+    category: "Product Ads",
+    image: "/design/nescafe-gold-collection.webp",
+    thumb: "/design/nescafe-gold-collection-600.webp",
+    width: 1080,
+    height: 1350,
+    concept: true,
+    caption: "Concept product ad — three jars set inside gold 3D type.",
+  },
+  {
+    id: "barista-slow-mornings",
+    title: "Barista — Slow Mornings. Strong Brews.",
+    category: "Café",
+    image: "/design/barista-slow-mornings.webp",
+    thumb: "/design/barista-slow-mornings-600.webp",
+    width: 1080,
+    height: 1350,
+    concept: true,
+    caption: "Concept café poster — bold type over a warm in-store scene.",
+  },
+  {
+    id: "nescafe-aroma",
+    title: "Nescafé — Aroma",
+    category: "Product Ads",
+    image: "/design/nescafe-aroma.webp",
+    thumb: "/design/nescafe-aroma-600.webp",
+    width: 941,
+    height: 1672,
+    focus: "50% 40%",
+    concept: true,
+    caption: "Concept story ad — steam lettering rising from the Gold Blend jar.",
+  },
+  {
+    id: "barista-made-for-you",
+    title: "Barista — Made For You (Buy 1 Get 1)",
+    category: "Café",
+    image: "/design/barista-made-for-you.webp",
+    thumb: "/design/barista-made-for-you-600.webp",
+    width: 1080,
+    height: 1350,
+    concept: true,
+    caption: "Concept promo poster — buy-one-get-one café offer.",
   },
 ];
 
