@@ -13,7 +13,7 @@ export const site = {
     "Hire Alex Shanjay, a video editor in Sri Lanka (Colombo & Jaffna): Reels & Shorts editing, YouTube videos, brand films, ads, colour grading and video shoots by AX.Visuals. Remote editing worldwide.",
   ogImage: "/og.jpg",
   updated: "2026",
-  lastmod: "2026-10-15", // sitemap date — bump when content changes
+  lastmod: "2026-10-18", // sitemap date — bump when content changes
   locale: "en_LK",
   geo: { region: "LK-41", placename: "Jaffna" },
   // Summary shown to AI answer engines (rendered in About + JSON-LD).
@@ -104,11 +104,11 @@ export const showreel = {
 // (Google needs an upload date for video results). Add them for new videos too.
 export const videos = [
   { id: "oLNeoaWaiGk", title: "Cinematic Reel", category: "Cinematic", year: 2026, featured: true, uploaded: "2026-09-25T14:20:08-07:00", seconds: 8 },
+  { id: "MHhFXs4WJJQ", title: "Festival Edit — Fire Show", category: "Festival", year: 2026, uploaded: "2026-10-17T14:01:53-07:00", seconds: 41 },
   { id: "dRpsjFcXw-g", title: "Before / After — Premiere Pro Edit", category: "Edit Breakdown", year: 2026, uploaded: "2026-10-12T07:21:35-07:00", seconds: 10 },
   { id: "mU3a-WvqPUw", title: "Nallur — Cinematic Reel", category: "Colour Grading", year: 2026, uploaded: "2026-09-25T14:23:52-07:00", seconds: 34 },
-  // [EDIT] add `seconds` once YouTube finishes processing these two (it reports 0 until then).
-  { id: "cweW-gqb8qY", title: "Cinematic Reel — 02", category: "Cinematic", year: 2026, uploaded: "2026-10-15T11:20:05-07:00" },
-  { id: "9MivAGI4SgQ", title: "Cinematic Reel — 03", category: "Cinematic", year: 2026, uploaded: "2026-10-15T11:20:43-07:00" },
+  { id: "cweW-gqb8qY", title: "Cinematic Reel — 02", category: "Cinematic", year: 2026, uploaded: "2026-10-15T11:25:52-07:00", seconds: 28 },
+  { id: "9MivAGI4SgQ", title: "Cinematic Reel — 03", category: "Cinematic", year: 2026, uploaded: "2026-10-15T11:25:45-07:00", seconds: 24 },
   { id: "WOBtJHS2HF4", title: "Cinematic Fight", category: "Action & VFX", year: 2026, uploaded: "2026-10-01T22:52:05-07:00", seconds: 40 },
   { id: "_zKvcEZlW2I", title: "Love Reel", category: "Storytelling", year: 2026, uploaded: "2026-09-25T14:25:01-07:00", seconds: 36 },
   { id: "O1MLFrXW_3Y", title: "Nallur — Festival Cut", category: "Cinematic", year: 2026, uploaded: "2026-09-25T14:22:45-07:00", seconds: 42 },
