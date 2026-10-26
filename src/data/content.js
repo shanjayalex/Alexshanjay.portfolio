@@ -13,7 +13,7 @@ export const site = {
     "Hire Alex Shanjay, a video editor in Sri Lanka (Colombo & Jaffna): Reels & Shorts editing, YouTube videos, brand films, ads, colour grading and video shoots by AX.Visuals. Remote editing worldwide.",
   ogImage: "/og.jpg",
   updated: "2026",
-  lastmod: "2026-10-25", // sitemap date — bump when content changes
+  lastmod: "2026-10-26", // sitemap date — bump when content changes
   locale: "en_LK",
   geo: { region: "LK-41", placename: "Jaffna" },
   // Summary shown to AI answer engines (rendered in About + JSON-LD).
@@ -107,6 +107,7 @@ export const videos = [
   { id: "p_iU9eUdJz8", title: "3D Text Animation Edit", category: "Motion Graphics", year: 2026, featured: true, uploaded: "2026-10-25T02:21:21-07:00", seconds: 23 },
   { id: "oLNeoaWaiGk", title: "Cinematic Reel", category: "Cinematic", year: 2026, uploaded: "2026-09-25T14:20:08-07:00", seconds: 8 },
   { id: "MHhFXs4WJJQ", title: "Festival Edit — Fire Show", category: "Festival", year: 2026, uploaded: "2026-10-17T14:01:53-07:00", seconds: 41 },
+  { id: "4RAcnMVzvyg", title: "Learn Premiere Pro FREE", category: "YouTube Edit", year: 2026, uploaded: "2026-10-26T06:36:39-07:00", seconds: 36 },
   { id: "dRpsjFcXw-g", title: "Before / After — Premiere Pro Edit", category: "Edit Breakdown", year: 2026, uploaded: "2026-10-12T07:21:35-07:00", seconds: 10 },
   { id: "mU3a-WvqPUw", title: "Nallur — Cinematic Reel", category: "Colour Grading", year: 2026, uploaded: "2026-09-25T14:23:52-07:00", seconds: 34 },
   { id: "cweW-gqb8qY", title: "Cinematic Reel — 02", category: "Cinematic", year: 2026, uploaded: "2026-10-15T11:25:52-07:00", seconds: 28 },
