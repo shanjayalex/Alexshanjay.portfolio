@@ -13,7 +13,7 @@ export const site = {
     "Hire Alex Shanjay, a video editor in Sri Lanka (Colombo & Jaffna): Reels & Shorts editing, YouTube videos, brand films, ads, colour grading and video shoots by AX.Visuals. Remote editing worldwide.",
   ogImage: "/og.jpg",
   updated: "2026",
-  lastmod: "2026-11-02", // sitemap date — bump when content changes
+  lastmod: "2026-11-17", // sitemap date — bump when content changes
   locale: "en_LK",
   geo: { region: "LK-41", placename: "Jaffna" },
   // Summary shown to AI answer engines (rendered in About + JSON-LD).
@@ -107,6 +107,7 @@ export const videos = [
   { id: "p_iU9eUdJz8", title: "3D Text Animation Edit", category: "Motion Graphics", year: 2026, featured: true, uploaded: "2026-10-25T02:21:21-07:00", seconds: 23 },
   { id: "oLNeoaWaiGk", title: "Cinematic Reel", category: "Cinematic", year: 2026, uploaded: "2026-09-25T14:20:08-07:00", seconds: 8 },
   { id: "MHhFXs4WJJQ", title: "Festival Edit — Fire Show", category: "Festival", year: 2026, uploaded: "2026-10-17T14:01:53-07:00", seconds: 41 },
+  { id: "d6naENjo1Jo", title: "Predator — Cinematic Edit", category: "Cinematic", year: 2026, uploaded: "2026-11-17T02:30:24-08:00", seconds: 17 },
   { id: "4RAcnMVzvyg", title: "Learn Premiere Pro FREE", category: "YouTube Edit", year: 2026, uploaded: "2026-10-26T06:36:39-07:00", seconds: 36 },
   { id: "WlSZxBbZzMw", title: "100+ Fonts — Kinetic Type", category: "Motion Graphics", year: 2026, uploaded: "2026-11-01T19:03:17-08:00", seconds: 11 },
   { id: "vi1f4ZoZZCM", title: "Followers — Typography Edit", category: "Motion Graphics", year: 2026, uploaded: "2026-11-01T19:01:39-08:00", seconds: 7 },
@@ -123,6 +124,8 @@ export const videos = [
 ];
 
 export const shorts = [
+  { id: "7GY0YMo1hcY", title: "Breaking Bad — Talking Head Edit", category: "Talking Head", year: 2026, uploaded: "2026-11-17T02:22:22-08:00", seconds: 75 },
+  { id: "hFik9pH9eMk", title: "Game of Thrones — Talking Head Edit", category: "Talking Head", year: 2026, uploaded: "2026-11-17T02:30:40-08:00", seconds: 49 },
   { id: "NRxfKfkg7MA", title: "Real Estate Edit — 01", category: "Real Estate", year: 2026, uploaded: "2026-10-12T07:24:15-07:00", seconds: 31 },
   { id: "ewZIMDq8YyI", title: "Real Estate Edit — 02", category: "Real Estate", year: 2026, uploaded: "2026-10-12T07:29:21-07:00", seconds: 61 },
   { id: "rpVljlnqezc", title: "Instagram Reel", category: "Social Reel", year: 2026, uploaded: "2026-10-12T07:31:06-07:00", seconds: 37 },
